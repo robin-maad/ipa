@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ipa-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ipa-website
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - NEXT_PUBLIC_CALCOM_URL=${NEXT_PUBLIC_CALCOM_URL}
+      - NEXT_PUBLIC_PLAUSIBLE_DOMAIN=${NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+      - NOTIFICATION_EMAIL=${NOTIFICATION_EMAIL}
+    env_file:
+      - .env.production
+    networks:
+      - ipa-network
+
+networks:
+  ipa-network:
+    driver: bridge
