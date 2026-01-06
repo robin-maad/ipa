@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { processAnalysisSchema } from '@/lib/validation/schemas';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Simple in-memory rate limiting (for production, use Redis or similar)
 const rateLimitMap = new Map<string, number[]>();
 
@@ -27,6 +25,9 @@ function rateLimit(ip: string, limit: number = 5, windowMs: number = 3600000): b
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize Resend here, at runtime (not at build time!)
+    const resend = new Resend(process.env.RESEND_API_KEY || '');
+
     // Get IP for rate limiting
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
 
@@ -50,117 +51,120 @@ export async function POST(request: NextRequest) {
 
     // Send email notification using Resend
     try {
-      await resend.emails.send({
-        from: 'IPA Website <onboarding@resend.dev>', // Replace with your verified domain
-        to: [process.env.NOTIFICATION_EMAIL || 'robin@houseofmaad.de'],
-        subject: `Neue Prozessanalyse-Anfrage von ${validatedData.firmName}`,
-        html: `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <style>
-                body {
-                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-                  line-height: 1.6;
-                  color: #333;
-                  max-width: 600px;
-                  margin: 0 auto;
-                  padding: 20px;
-                }
-                .header {
-                  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-                  color: white;
-                  padding: 30px 20px;
-                  border-radius: 8px 8px 0 0;
-                  text-align: center;
-                }
-                .content {
-                  background: #f9fafb;
-                  padding: 30px 20px;
-                  border-radius: 0 0 8px 8px;
-                }
-                .field {
-                  margin-bottom: 20px;
-                }
-                .label {
-                  font-weight: 600;
-                  color: #374151;
-                  margin-bottom: 5px;
-                }
-                .value {
-                  background: white;
-                  padding: 10px 15px;
-                  border-radius: 4px;
-                  border-left: 3px solid #0d9488;
-                }
-                .footer {
-                  text-align: center;
-                  margin-top: 20px;
-                  padding-top: 20px;
-                  border-top: 1px solid #e5e7eb;
-                  color: #6b7280;
-                  font-size: 14px;
-                }
-              </style>
-            </head>
-            <body>
-              <div class="header">
-                <h1 style="margin: 0; font-size: 24px;">Neue Prozessanalyse-Anfrage</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">IPA Website Lead</p>
-              </div>
-
-              <div class="content">
-                <div class="field">
-                  <div class="label">Name:</div>
-                  <div class="value">${validatedData.name}</div>
+      // Only send email if API key is configured
+      if (process.env.RESEND_API_KEY) {
+        await resend.emails.send({
+          from: 'IPA Website <onboarding@resend.dev>', // Replace with your verified domain
+          to: [process.env.NOTIFICATION_EMAIL || 'robin@houseofmaad.de'],
+          subject: `Neue Prozessanalyse-Anfrage von ${validatedData.firmName}`,
+          html: `
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                  body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                  }
+                  .header {
+                    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+                    color: white;
+                    padding: 30px 20px;
+                    border-radius: 8px 8px 0 0;
+                    text-align: center;
+                  }
+                  .content {
+                    background: #f9fafb;
+                    padding: 30px 20px;
+                    border-radius: 0 0 8px 8px;
+                  }
+                  .field {
+                    margin-bottom: 20px;
+                  }
+                  .label {
+                    font-weight: 600;
+                    color: #374151;
+                    margin-bottom: 5px;
+                  }
+                  .value {
+                    background: white;
+                    padding: 10px 15px;
+                    border-radius: 4px;
+                    border-left: 3px solid #0d9488;
+                  }
+                  .footer {
+                    text-align: center;
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    border-top: 1px solid #e5e7eb;
+                    color: #6b7280;
+                    font-size: 14px;
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="header">
+                  <h1 style="margin: 0; font-size: 24px;">Neue Prozessanalyse-Anfrage</h1>
+                  <p style="margin: 10px 0 0 0; opacity: 0.9;">IPA Website Lead</p>
                 </div>
 
-                <div class="field">
-                  <div class="label">E-Mail:</div>
-                  <div class="value">
-                    <a href="mailto:${validatedData.email}" style="color: #0d9488; text-decoration: none;">
-                      ${validatedData.email}
-                    </a>
+                <div class="content">
+                  <div class="field">
+                    <div class="label">Name:</div>
+                    <div class="value">${validatedData.name}</div>
+                  </div>
+
+                  <div class="field">
+                    <div class="label">E-Mail:</div>
+                    <div class="value">
+                      <a href="mailto:${validatedData.email}" style="color: #0d9488; text-decoration: none;">
+                        ${validatedData.email}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <div class="label">Telefon:</div>
+                    <div class="value">
+                      <a href="tel:${validatedData.phone}" style="color: #0d9488; text-decoration: none;">
+                        ${validatedData.phone}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <div class="label">Kanzleiname:</div>
+                    <div class="value">${validatedData.firmName}</div>
+                  </div>
+
+                  <div class="field">
+                    <div class="label">Mitarbeiteranzahl:</div>
+                    <div class="value">${validatedData.employeeCount}</div>
+                  </div>
+
+                  ${validatedData.message ? `
+                  <div class="field">
+                    <div class="label">Nachricht:</div>
+                    <div class="value">${validatedData.message}</div>
+                  </div>
+                  ` : ''}
+
+                  <div class="footer">
+                    <p>Eingereicht am: ${new Date().toLocaleString('de-DE')}</p>
+                    <p>Von IP: ${ip}</p>
                   </div>
                 </div>
-
-                <div class="field">
-                  <div class="label">Telefon:</div>
-                  <div class="value">
-                    <a href="tel:${validatedData.phone}" style="color: #0d9488; text-decoration: none;">
-                      ${validatedData.phone}
-                    </a>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <div class="label">Kanzleiname:</div>
-                  <div class="value">${validatedData.firmName}</div>
-                </div>
-
-                <div class="field">
-                  <div class="label">Mitarbeiteranzahl:</div>
-                  <div class="value">${validatedData.employeeCount}</div>
-                </div>
-
-                ${validatedData.message ? `
-                <div class="field">
-                  <div class="label">Nachricht:</div>
-                  <div class="value">${validatedData.message}</div>
-                </div>
-                ` : ''}
-
-                <div class="footer">
-                  <p>Eingereicht am: ${new Date().toLocaleString('de-DE')}</p>
-                  <p>Von IP: ${ip}</p>
-                </div>
-              </div>
-            </body>
-          </html>
-        `,
-      });
+              </body>
+            </html>
+          `,
+        });
+      }
     } catch (emailError) {
       console.error('Email sending failed:', emailError);
       // Continue anyway - don't fail the request because email failed
