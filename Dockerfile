@@ -8,8 +8,8 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies
-RUN npm ci
+# Install ALL dependencies including devDependencies (needed for build)
+RUN npm ci --include=dev
 
 # Stage 2: Builder
 FROM node:20-alpine AS builder
@@ -21,9 +21,8 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy all files
 COPY . .
 
-# Set environment to production
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV NODE_ENV production
+# Disable telemetry (but DON'T set NODE_ENV=production yet!)
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build the application
 RUN npm run build
@@ -32,8 +31,8 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
@@ -53,8 +52,8 @@ USER nextjs
 # Expose port
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # Start the application
 CMD ["node", "server.js"]
