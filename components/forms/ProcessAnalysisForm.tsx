@@ -18,6 +18,7 @@ import {
   processAnalysisSchema,
   type ProcessAnalysisFormData,
 } from '@/lib/validation/schemas';
+import { trackFormSubmit, trackFormError } from '@/lib/analytics/events';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 
 export default function ProcessAnalysisForm() {
@@ -56,14 +57,31 @@ export default function ProcessAnalysisForm() {
 
       setSubmitSuccess(true);
 
+      // Track successful form submission
+      trackFormSubmit({
+        form_name: 'process_analysis_form',
+        form_location: 'contact_section',
+        success: true,
+      });
+
       // Redirect to thank you page after 1.5 seconds
       setTimeout(() => {
         window.location.href = '/danke';
       }, 1500);
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
       setSubmitError(
         'Es gab ein Problem beim Absenden des Formulars. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.'
       );
+
+      // Track form submission error
+      trackFormError({
+        form_name: 'process_analysis_form',
+        form_location: 'contact_section',
+        error_type: 'submission_failed',
+        error_message: errorMessage,
+      });
     } finally {
       setIsSubmitting(false);
     }

@@ -95,6 +95,15 @@ export default function Footer() {
                   Impressum
                 </Link>
               </li>
+              <li>
+                <button
+                  type="button"
+                  data-cc="show-preferencesModal"
+                  className="transition-colors hover:text-teal-400"
+                >
+                  Cookie-Einstellungen
+                </button>
+              </li>
             </ul>
           </div>
         </div>

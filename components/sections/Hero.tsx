@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { TrackableButton } from '@/components/shared/TrackableButton';
 import { ArrowRight, Shield, Check } from 'lucide-react';
 
 export default function Hero() {
@@ -74,15 +74,21 @@ export default function Hero() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Button
+              <TrackableButton
                 size="xl"
                 onClick={scrollToContact}
                 className="group"
+                trackEvent="cta_click"
+                trackData={{
+                  cta_text: 'Kostenlose Prozessanalyse vereinbaren',
+                  cta_location: 'hero',
+                  cta_type: 'primary',
+                }}
               >
                 Kostenlose Prozessanalyse vereinbaren
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button
+              </TrackableButton>
+              <TrackableButton
                 size="xl"
                 variant="outline"
                 onClick={() => {
@@ -92,9 +98,15 @@ export default function Hero() {
                   }
                 }}
                 className="border-gray-400 text-gray-300 hover:bg-white/10"
+                trackEvent="cta_click"
+                trackData={{
+                  cta_text: 'Mehr erfahren',
+                  cta_location: 'hero',
+                  cta_type: 'secondary',
+                }}
               >
                 Mehr erfahren
-              </Button>
+              </TrackableButton>
             </div>
           </div>
 
