@@ -384,4 +384,49 @@ Both features are:
 - Mobile conversion: +10-20% (sticky CTA reduces abandonment)
 - Overall conversion: +12-22% (industry benchmark for sticky CTAs)
 
-Ready for testing and deployment! 🚀
+---
+
+## Additional Fixes (2026-01-06)
+
+### Build Fix for Coolify Deployment ✅
+**Issue**: `useSearchParams()` requires Suspense boundary for Next.js 14+ static generation
+
+**Solution**:
+- Created `LandingPageTracker.tsx` component with `useSearchParams()`
+- Wrapped tracker in `<Suspense>` boundary in main page
+- Made main page a server component (removed 'use client')
+
+**Files**:
+- `app/tax-automation/page.tsx` - Removed 'use client', added Suspense wrapper
+- `components/landing/LandingPageTracker.tsx` - New tracking component
+
+**Result**: ✅ Build succeeds, page statically generated, ready for Coolify
+
+### Cookie Consent Position Fix ✅
+**Issue**: Cookie consent banner overlapped sticky CTA button (both bottom-right)
+
+**Solution**:
+- Moved consent modal from `bottom right` to `bottom left`
+- Moved preferences modal from `right` to `left`
+
+**Files**:
+- `components/shared/CookieConsent.tsx` - Updated positions
+
+**Result**: ✅ No overlap, both elements visible simultaneously
+
+### Header Overlap Fix ✅
+**Issue**: Double header on `/tax-automation` (root layout + landing layout)
+
+**Solution**:
+- Created `ConditionalLayout` component that excludes landing pages from standard header/footer
+- Allows landing page to use its own minimal header
+
+**Files**:
+- `app/layout.tsx` - Now uses ConditionalLayout
+- `components/shared/ConditionalLayout.tsx` - New conditional wrapper
+
+**Result**: ✅ Single header, no overlap
+
+---
+
+Ready for production deployment! 🚀

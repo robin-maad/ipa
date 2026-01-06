@@ -12,13 +12,13 @@ export function CookieConsentManager() {
       guiOptions: {
         consentModal: {
           layout: 'box inline',
-          position: 'bottom right',
+          position: 'bottom left',
           equalWeightButtons: true,
           flipButtons: false,
         },
         preferencesModal: {
           layout: 'box',
-          position: 'right',
+          position: 'left',
           equalWeightButtons: true,
           flipButtons: false,
         },
