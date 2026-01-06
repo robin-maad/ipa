@@ -2,11 +2,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { GoogleTagManager } from '@next/third-parties/google';
-import Header from '@/components/shared/Header';
-import Footer from '@/components/shared/Footer';
 import { CookieConsentManager } from '@/components/shared/CookieConsent';
 import { ConsentModeScript } from '@/components/shared/ConsentModeScript';
 import { getOrganizationSchema, getWebSiteSchema } from '@/lib/seo/schemas';
+import ConditionalLayout from '@/components/shared/ConditionalLayout';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -103,9 +102,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Header />
-        {children}
-        <Footer />
+        <ConditionalLayout>{children}</ConditionalLayout>
         {/* Cookie Consent Manager */}
         <CookieConsentManager />
         {/* Google Tag Manager - Loads after consent */}
