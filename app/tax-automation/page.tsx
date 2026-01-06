@@ -1,7 +1,4 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import LandingLayout from '@/components/landing/LandingLayout';
 import LandingHero from '@/components/landing/LandingHero';
 import TrustStrip from '@/components/landing/TrustStrip';
@@ -15,27 +12,17 @@ import OfferSection from '@/components/landing/OfferSection';
 import LandingCTA from '@/components/landing/LandingCTA';
 import FAQSection from '@/components/landing/FAQSection';
 import StickyFloatingCTA from '@/components/landing/StickyFloatingCTA';
-import { trackLandingPageView } from '@/lib/analytics/events';
+import LandingPageTracker from '@/components/landing/LandingPageTracker';
 
 export default function TaxAutomationPage() {
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    // Track landing page view with UTM parameters if present
-    const utmSource = searchParams.get('utm_source') || undefined;
-    const utmMedium = searchParams.get('utm_medium') || undefined;
-    const utmCampaign = searchParams.get('utm_campaign') || undefined;
-
-    trackLandingPageView({
-      page_path: '/tax-automation',
-      utm_source: utmSource,
-      utm_medium: utmMedium,
-      utm_campaign: utmCampaign,
-    });
-  }, [searchParams]);
 
   return (
     <LandingLayout>
+      {/* Track page view with UTM parameters */}
+      <Suspense fallback={null}>
+        <LandingPageTracker />
+      </Suspense>
+
       <main>
         {/* 1. Hero (Above the fold) */}
         <LandingHero />
