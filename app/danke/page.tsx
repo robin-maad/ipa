@@ -46,7 +46,7 @@ export default function ThankYouPage() {
           {/* Cal.com Inline Embed */}
           <div className="overflow-hidden rounded-lg">
             <iframe
-              src="https://cal.com/houseofmaad/30min"
+              src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1CWTupJjqCUabMzOM4dM3mn3ITJYXBGp6_Be28QlwAusv1YBaXp8s9_NDzLjHLQObiz4VhdouR"
               width="100%"
               height="800"
               frameBorder="0"
@@ -103,10 +103,10 @@ export default function ThankYouPage() {
           <p className="text-gray-600">
             Haben Sie Fragen? Kontaktieren Sie uns direkt unter:{' '}
             <a
-              href="mailto:robin@houseofmaad.de"
+              href="mailto:alex@smithundpartners.de"
               className="font-semibold text-teal-600 hover:underline"
             >
-              robin@houseofmaad.de
+              alex@smithundpartners.de
             </a>
           </p>
         </div>

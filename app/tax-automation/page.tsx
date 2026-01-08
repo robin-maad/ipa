@@ -8,6 +8,7 @@ import HowItWorks from '@/components/landing/HowItWorks';
 import BenefitsGrid from '@/components/landing/BenefitsGrid';
 import LiquiditySection from '@/components/landing/LiquiditySection';
 import ProofSection from '@/components/landing/ProofSection';
+import ComplianceSection from '@/components/landing/ComplianceSection';
 import OfferSection from '@/components/landing/OfferSection';
 import LandingCTA from '@/components/landing/LandingCTA';
 import FAQSection from '@/components/landing/FAQSection';
@@ -48,13 +49,16 @@ export default function TaxAutomationPage() {
         {/* 8. Proof (Testimonial + Demo checklist) */}
         <ProofSection />
 
-        {/* 9. Offer (What you'll receive) */}
+        {/* 9. Compliance & Legal Trust */}
+        <ComplianceSection />
+
+        {/* 10. Offer (What you'll receive) */}
         <OfferSection />
 
-        {/* 10. FAQ */}
+        {/* 11. FAQ */}
         <FAQSection />
 
-        {/* 11. Final CTA + Form */}
+        {/* 12. Final CTA + Form */}
         <LandingCTA />
       </main>
 

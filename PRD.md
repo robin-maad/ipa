@@ -44,7 +44,7 @@ Create a high-converting marketing website that positions IPA-S as the trusted, 
 
 **Key Differentiators**:
 1. **100% GDPR Compliant** - Zero "black box" risk
-2. **Taylor Wessing Validated** - Legal validation for peace of mind
+2. **Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.** - Legal validation for peace of mind
 3. **DATEV Native** - Pre-configured for German tax workflows
 4. **On-Premise Intelligence** - Client data never leaves your network
 5. **ROI < 12 Months** - Fast payback period
@@ -78,7 +78,7 @@ Create a high-converting marketing website that positions IPA-S as the trusted, 
 4. **Trust Building** (Safety Shield Section)
    - 100% Local Intelligence badge
    - DATEV Native badge
-   - Legally Validated badge (Taylor Wessing)
+   - Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
    - On-premise hardware photo/visual
 
 5. **Value Demonstration** (Economics + Workflows)
@@ -88,7 +88,7 @@ Create a high-converting marketing website that positions IPA-S as the trusted, 
    - Real workflow examples they recognize
 
 6. **Proof** (Validation Section)
-   - Taylor Wessing validation prominently displayed
+   - Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
    - "Developed for one client, deployed across all" reusability message
 
 7. **Call to Action** (CTA Section)
@@ -113,7 +113,7 @@ Create a high-converting marketing website that positions IPA-S as the trusted, 
 
 2. **Hero Section**
    - Headline: "IPA-S: The First On-Premise Digital Workforce for German Tax Firms"
-   - Subheadline: "100% GDPR Compliant. Zero 'Black Box' Risk. Validated by Taylor Wessing."
+   - Subheadline: "100% GDPR Compliant. Zero 'Black Box' Risk. Validiert von durch ein führendes Wirtschaftsrecht-Team."
    - Primary CTA: "Schedule Process Analysis"
    - Visual: Split-screen showing chaos→order or before/after
 
@@ -178,7 +178,7 @@ Create a high-converting marketing website that positions IPA-S as the trusted, 
     - Company information (TBD)
     - Privacy Policy link
     - Impressum (legal requirement in Germany)
-    - Taylor Wessing validation badge (repeated)
+    - Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
     - DATEV Native badge (repeated)
 
 ### Should Have (Phase 2)

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: '%s | IPA',
   },
   description:
-    '100% GDPR-konforme Automatisierung für Steuerkanzleien. Validiert von Taylor Wessing. Automatisieren Sie bis zu 40% repetitiver Aufgaben.',
+    '100% GDPR-konforme Automatisierung für Steuerkanzleien. Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht. Automatisieren Sie bis zu 40% repetitiver Aufgaben.',
   keywords: [
     'Steuerkanzlei Automatisierung',
     'DATEV Automatisierung',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'de_DE',
     url: 'https://ipa.smith-und-partners.de',
-    title: 'IPA | Die erste On-Premise Digital Workforce',
+    title: 'IPA | Die erste KI Workforce',
     description:
       'GDPR-konforme Automatisierung für deutsche Steuerkanzleien. Bis zu 40% repetitive Aufgaben automatisieren.',
     siteName: 'IPA',

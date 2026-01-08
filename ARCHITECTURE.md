@@ -458,7 +458,7 @@ const CalendlyEmbed = dynamic(() => import('./CalendlyEmbed'), {
 // app/page.tsx
 export const metadata = {
   title: 'IPA-S | Intelligente Prozessautomatisierung für Steuerkanzleien',
-  description: '100% GDPR-konforme Automatisierung für Steuerkanzleien. Validiert von Taylor Wessing. Automatisieren Sie bis zu 40% repetitiver Aufgaben.',
+  description: '100% GDPR-konforme Automatisierung für Steuerkanzleien. Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht. Automatisieren Sie bis zu 40% repetitiver Aufgaben.',
   keywords: 'Steuerkanzlei Automatisierung, DATEV Automatisierung, KI Steuerberatung',
   openGraph: {
     title: 'IPA-S | Die erste On-Premise Digital Workforce',

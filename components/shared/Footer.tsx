@@ -17,8 +17,8 @@ export default function Footer() {
               <span className="text-xl font-bold">IPA</span>
             </div>
             <p className="mb-4 max-w-md text-sm text-gray-300">
-              Die erste On-Premise Digital Workforce für deutsche
-              Steuerkanzleien. 100% GDPR-konform. Validiert von Taylor Wessing.
+              Die erste KI Workforce für deutsche
+              Steuerkanzleien. 100% GDPR-konform. Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
             </p>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2">
@@ -30,7 +30,7 @@ export default function Footer() {
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-teal-400" />
                 <span className="text-xs text-gray-300">
-                  Taylor Wessing Validated
+                  Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
                 </span>
               </div>
             </div>

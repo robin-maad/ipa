@@ -238,7 +238,7 @@ Same as above for testing
 ### Optional Enhancements (Future)
 - Add images/photos to sections
 - Add company logo (currently placeholder)
-- Add Taylor Wessing badge image
+- Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
 - Add DATEV badge image
 - Add workflow diagrams/screenshots
 - Implement Plausible Analytics

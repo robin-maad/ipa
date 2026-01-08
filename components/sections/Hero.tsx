@@ -27,12 +27,12 @@ export default function Hero() {
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 self-start rounded-full bg-teal-600/10 px-4 py-2 text-sm font-medium text-teal-400">
               <Shield className="h-4 w-4" />
-              <span>100% GDPR-Konform · Taylor Wessing Validiert</span>
+              <span>100% GDPR-Konform · Juristisch geprüft</span>
             </div>
 
             {/* Headline */}
             <h1 className="mb-6 text-4xl font-bold leading-tight text-white lg:text-5xl xl:text-6xl">
-              Die erste On-Premise Digital Workforce für{' '}
+              Die erste KI Workforce für{' '}
               <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
                 Steuerkanzleien
               </span>

@@ -20,7 +20,7 @@ export function getOrganizationSchema(): WithContext<Organization> {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     description:
-      'Intelligente Prozessautomatisierung für deutsche Steuerkanzleien. 100% GDPR-konform, On-Premise, validiert von Taylor Wessing.',
+      'Intelligente Prozessautomatisierung für deutsche Steuerkanzleien. 100% GDPR-konform, On-Premise möglich, juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'DE',

@@ -62,18 +62,18 @@ export default function FinalCTA() {
               </h3>
               <div className="space-y-3">
                 <a
-                  href="mailto:robin@houseofmaad.de"
+                  href="mailto:alex@smithundpartners.de"
                   className="flex items-center gap-3 text-gray-300 transition-colors hover:text-teal-400"
                 >
                   <Mail className="h-5 w-5" />
-                  <span>robin@houseofmaad.de</span>
+                  <span>alex@smithundpartners.de</span>
                 </a>
                 <a
-                  href="tel:+491234567890"
+                  href="tel:+491708211993"
                   className="flex items-center gap-3 text-gray-300 transition-colors hover:text-teal-400"
                 >
                   <Phone className="h-5 w-5" />
-                  <span>+49 (0) 123 456 7890</span>
+                  <span>+49 170 8211993</span>
                 </a>
               </div>
             </div>

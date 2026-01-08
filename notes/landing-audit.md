@@ -177,7 +177,7 @@ app/
 ## Content Analysis
 
 ### Current Messaging (Homepage Hero):
-- **Headline:** "Die erste On-Premise Digital Workforce für Steuerkanzleien"
+- **Headline:** "Die erste KI Workforce für Steuerkanzleien"
 - **Subheadline:** "Automatisieren Sie bis zu 40% repetitiver Aufgaben. Ohne 'Black Box'-Risiko. Mit lokaler KI-Intelligenz direkt in Ihrer Kanzlei."
 - **Trust points:**
   - 100% Local Intelligence – Client Data Never Leaves Your Network

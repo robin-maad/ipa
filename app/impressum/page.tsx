@@ -12,32 +12,19 @@ export default function ImpressumPage() {
         <h1 className="mb-8 text-4xl font-bold text-navy-900">Impressum</h1>
 
         <div className="prose prose-lg max-w-none space-y-8 text-gray-700">
-          <section className="rounded-lg border-2 border-red-200 bg-red-50 p-6">
-            <h2 className="mb-4 text-2xl font-bold text-red-900">
-              ⚠️ Platzhalter - Bitte ausfüllen
-            </h2>
-            <p className="text-red-700">
-              Dieses Impressum enthält Platzhalter und muss vor der
-              Veröffentlichung mit den korrekten Unternehmensdaten ausgefüllt
-              werden. Das Impressum ist in Deutschland gesetzlich vorgeschrieben
-              (§ 5 TMG).
-            </p>
-          </section>
-
+          
           <section>
             <h2 className="mb-4 text-2xl font-bold text-navy-900">
               Angaben gemäß § 5 TMG
             </h2>
             <p>
-              <strong>[FIRMENNAME]</strong>
+              <strong>Smith & Partners a brand of Rooftop UG (limited liability)</strong>
               <br />
-              [Rechtsform, z.B. GmbH, UG, Einzelunternehmen]
+              Richard-Breitenfeld-Strasse 56
               <br />
-              [Straße und Hausnummer]
+              60438 Frankfurt
               <br />
-              [PLZ und Ort]
-              <br />
-              [Land]
+              Deutschland
             </p>
           </section>
 
@@ -46,40 +33,24 @@ export default function ImpressumPage() {
               Vertreten durch
             </h2>
             <p>
-              [Geschäftsführer/Inhaber Name]
+              Kerstin Clessienne
               <br />
-              [ggf. weitere Geschäftsführer]
+              Geschäftsführerin
             </p>
           </section>
 
           <section>
             <h2 className="mb-4 text-2xl font-bold text-navy-900">Kontakt</h2>
             <p>
-              Telefon: [Telefonnummer]
+              Telefon: +49 170 8211993
               <br />
               E-Mail:{' '}
               <a
-                href="mailto:robin@houseofmaad.de"
+                href="mailto:alex@smithundpartners.de"
                 className="text-teal-600 hover:underline"
               >
-                robin@houseofmaad.de
+                alex@smithundpartners.de
               </a>
-            </p>
-          </section>
-
-          <section>
-            <h2 className="mb-4 text-2xl font-bold text-navy-900">
-              Registereintrag
-            </h2>
-            <p>
-              <em>(Falls zutreffend)</em>
-            </p>
-            <p>
-              Eintragung im Handelsregister
-              <br />
-              Registergericht: [z.B. Amtsgericht Berlin]
-              <br />
-              Registernummer: [z.B. HRB 12345 B]
             </p>
           </section>
 
@@ -88,29 +59,10 @@ export default function ImpressumPage() {
               Umsatzsteuer-ID
             </h2>
             <p>
-              <em>(Falls zutreffend)</em>
-            </p>
-            <p>
               Umsatzsteuer-Identifikationsnummer gemäß § 27 a
               Umsatzsteuergesetz:
               <br />
-              [DE123456789]
-            </p>
-          </section>
-
-          <section>
-            <h2 className="mb-4 text-2xl font-bold text-navy-900">
-              Berufsbezeichnung und berufsrechtliche Regelungen
-            </h2>
-            <p>
-              <em>(Falls zutreffend, z.B. für Steuerberater)</em>
-            </p>
-            <p>
-              Berufsbezeichnung: [z.B. Steuerberater]
-              <br />
-              Zuständige Kammer: [z.B. Steuerberaterkammer Berlin]
-              <br />
-              Verliehen in: [Deutschland]
+              DE278711668
             </p>
           </section>
 

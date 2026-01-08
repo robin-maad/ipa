@@ -10,6 +10,26 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
+    question: 'Ist die KI-Technologie in Deutschland rechtlich zulässig?',
+    answer:
+      'Ja. Die IPA-Plattform entspricht den Anforderungen der EU-KI-Verordnung (KI-VO). Sie ist kein verbotenes oder Hochrisiko-KI-System nach Art. 5 und Art. 6 KI-VO. Ein renommiertes Wirtschaftsrecht-Team hat die Plattform geprüft und bestätigt: IPA erfüllt alle regulatorischen Anforderungen für den Einsatz in Steuerkanzleien.',
+  },
+  {
+    question: 'Wie sieht es mit der DSGVO-Konformität aus?',
+    answer:
+      'IPA ist vollständig DSGVO-konform. Sie sind als Kanzlei der datenschutzrechtliche Verantwortliche – IPA verarbeitet Daten ausschließlich auf Basis Ihres Mandatsvertrags (Art. 6 Abs. 1 lit. b DSGVO). Mandantendaten werden verschlüsselt verarbeitet, und Sie behalten die volle Datenhoheit. Die Plattform wurde von Datenschutzexperten validiert.',
+  },
+  {
+    question: 'Welche Governance-Anforderungen gelten?',
+    answer:
+      'Für den Einsatz von IPA empfehlen wir die Implementierung minimalinvasiver Governance-Mechanismen: eine klare Aufsichtsstruktur, eine interne KI-Policy und Schulungen für Ihr Team. Diese Maßnahmen sind Best Practices und schaffen Rechtssicherheit. Wir unterstützen Sie bei der Umsetzung.',
+  },
+  {
+    question: 'Haftet die Kanzlei für KI-generierte Ergebnisse?',
+    answer:
+      'IPA ist ein unterstützendes System – die finale Prüfung und Freigabe liegt immer bei Ihrer Fachkraft. Das System ist so konzipiert, dass Steuerberater die Kontrolle behalten und die Ergebnisse validieren. Damit erfüllen Sie die Anforderungen der KI-VO an den Einsatz von KI-Systemen in regulierten Berufen.',
+  },
+  {
     question: 'Wie schnell kann das live gehen?',
     answer:
       'Je nach Komplexität Ihrer Workflows zwischen 2–8 Wochen. Wir starten mit einem Pilotprozess, sammeln Feedback und skalieren dann schrittweise. Sie behalten volle Kontrolle über das Tempo.',
@@ -18,11 +38,6 @@ const faqs: FAQItem[] = [
     question: 'Welche Datenquellen werden unterstützt?',
     answer:
       'IPA arbeitet mit gängigen Kanzlei-Systemen wie DATEV, E-Mail-Eingängen und digitalen Mandantenportalen. Die genaue Integration besprechen wir in der Demo – wir versprechen nur, was wir auch liefern können.',
-  },
-  {
-    question: 'Wie funktioniert Datenschutz / DSGVO?',
-    answer:
-      'IPA ist DSGVO-orientiert aufgebaut. Mandantendaten werden verschlüsselt verarbeitet, und Sie behalten die volle Datenhoheit. Keine Cloud-Zwang, keine Black-Box-KI. Details klären wir gerne im persönlichen Gespräch.',
   },
   {
     question: 'Ist das auch für kleine Kanzleien sinnvoll?',

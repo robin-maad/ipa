@@ -40,7 +40,7 @@ export default function SafetyShield() {
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <span className="text-sm text-gray-300">
-                    On-Premise Installation
+                    On-Premise Installation möglich
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -109,14 +109,14 @@ export default function SafetyShield() {
             </CardHeader>
             <CardContent>
               <p className="mb-4 text-gray-300">
-                Von Taylor Wessing geprüft und validiert. Beruhigende Sicherheit
+                Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht. Beruhigende Sicherheit
                 für Ihre Haftungsfragen.
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <span className="text-sm text-gray-300">
-                    Taylor Wessing Prüfung
+                    Juristisch geprüft
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
