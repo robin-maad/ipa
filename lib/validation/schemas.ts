@@ -33,6 +33,9 @@ export const processAnalysisSchema = z.object({
 
   // Honeypot field for bot protection
   honeypot: z.string().max(0, 'Ungültige Eingabe'),
+
+  // Cloudflare Turnstile token
+  turnstileToken: z.string().min(1, 'Bot-Verifikation fehlgeschlagen'),
 });
 
 export type ProcessAnalysisFormData = z.infer<typeof processAnalysisSchema>;
@@ -77,6 +80,9 @@ export const landingFormSchema = z.object({
 
   // Honeypot field for bot protection
   honeypot: z.string().max(0, 'Ungültige Eingabe').optional().default(''),
+
+  // Cloudflare Turnstile token
+  turnstileToken: z.string().min(1, 'Bot-Verifikation fehlgeschlagen'),
 });
 
 export type LandingFormData = z.infer<typeof landingFormSchema>;

@@ -1,12 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { processAnalysisSchema } from '@/lib/validation/schemas';
 import { Resend } from 'resend';
+import {
+  verifyTurnstileToken,
+  isDisposableEmail,
+  validateEmailPattern,
+} from '@/lib/security/turnstile';
 
-// Simple in-memory rate limiting (for production, use Redis or similar)
+// Enhanced in-memory rate limiting (for production, use Redis or similar)
 const rateLimitMap = new Map<string, number[]>();
+const ipBlockList = new Map<string, number>(); // Track repeated violations
 
-function rateLimit(ip: string, limit: number = 5, windowMs: number = 3600000): boolean {
+function rateLimit(ip: string, limit: number = 3, windowMs: number = 3600000): boolean {
   const now = Date.now();
+
+  // Check if IP is temporarily blocked
+  const blockedUntil = ipBlockList.get(ip);
+  if (blockedUntil && now < blockedUntil) {
+    return false;
+  }
+
   const userRequests = rateLimitMap.get(ip) || [];
 
   // Filter out old requests
@@ -15,7 +28,9 @@ function rateLimit(ip: string, limit: number = 5, windowMs: number = 3600000): b
   );
 
   if (recentRequests.length >= limit) {
-    return false; // Rate limit exceeded
+    // Block IP for 1 hour after rate limit violation
+    ipBlockList.set(ip, now + 3600000);
+    return false;
   }
 
   recentRequests.push(now);
@@ -47,6 +62,35 @@ export async function POST(request: NextRequest) {
     if (validatedData.honeypot) {
       // Silent fail for bots
       return NextResponse.json({ success: true });
+    }
+
+    // Verify Cloudflare Turnstile token
+    const isTurnstileValid = await verifyTurnstileToken(
+      validatedData.turnstileToken,
+      ip
+    );
+
+    if (!isTurnstileValid) {
+      return NextResponse.json(
+        { error: 'Bot-Verifikation fehlgeschlagen. Bitte versuchen Sie es erneut.' },
+        { status: 403 }
+      );
+    }
+
+    // Check for disposable email
+    if (isDisposableEmail(validatedData.email)) {
+      return NextResponse.json(
+        { error: 'Bitte verwenden Sie eine gültige E-Mail-Adresse.' },
+        { status: 400 }
+      );
+    }
+
+    // Validate email pattern
+    if (!validateEmailPattern(validatedData.email)) {
+      return NextResponse.json(
+        { error: 'Die E-Mail-Adresse scheint ungültig zu sein.' },
+        { status: 400 }
+      );
     }
 
     // Send email notification using Resend
