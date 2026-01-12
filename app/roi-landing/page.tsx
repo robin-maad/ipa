@@ -70,7 +70,7 @@ export default function ROILandingPage() {
         <ROICalculator onEmailRequest={handleScrollToForm} />
 
         {/* Section 4: Concrete Examples (2 cards) */}
-        <ConcreteExamplesCards />
+        {/* <ConcreteExamplesCards /> */}
 
         {/* Section 5: Upside Use Cases (6 bullets) */}
         <UpsideUseCases />

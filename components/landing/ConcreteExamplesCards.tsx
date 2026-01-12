@@ -2,10 +2,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Building2, TrendingUp } from 'lucide-react';
 
 /**
- * Concrete Examples Section
- * 2 cards matching formula verification:
- * - Card A: 100 clients, 2 packages/year, 2h saved, 80€/h, 80% → 25.600€
- * - Card B: 500 clients, 2 packages/year, 2h saved, 80€/h, 80% → 128.000€
+ * Concrete Examples Section (Time-Based)
+ * 2 cards matching time-based formula verification:
+ * - Card A: 100 clients, 2 packages/year, 60min saved, 80% → 160 Std/Jahr
+ * - Card B: 500 clients, 2 packages/year, 60min saved, 80% → 800 Std/Jahr
  */
 export default function ConcreteExamplesCards() {
   return (
@@ -40,19 +40,30 @@ export default function ConcreteExamplesCards() {
 
               <div className="mb-6">
                 <div className="text-5xl font-bold text-white mb-2">
-                  25.600€
+                  160 Std
                 </div>
                 <p className="text-sm text-navy-300">
-                  Jährliches Einsparpotenzial
+                  Kapazität pro Jahr freigesetzt
                 </p>
               </div>
 
-              <div className="space-y-2 text-xs text-navy-400 bg-navy-900/50 rounded-lg p-4">
-                <p><span className="text-navy-500">Mandanten:</span> 100</p>
-                <p><span className="text-navy-500">Pakete/Jahr:</span> 2</p>
-                <p><span className="text-navy-500">Zeitersparnis:</span> 2 Std manuell</p>
-                <p><span className="text-navy-500">Stundensatz:</span> 80€/h</p>
-                <p><span className="text-navy-500">Adoption:</span> 80%</p>
+              <div className="space-y-3 text-sm text-navy-300 bg-navy-900/50 rounded-lg p-4">
+                <div className="grid grid-cols-2 gap-2 pb-3 border-b border-navy-700">
+                  <p><span className="text-navy-500">Mandanten:</span> 100</p>
+                  <p><span className="text-navy-500">Pakete/Jahr:</span> 2</p>
+                  <p><span className="text-navy-500">Zeitersparnis:</span> 60 Min</p>
+                  <p><span className="text-navy-500">Adoption:</span> 80%</p>
+                </div>
+                <div className="space-y-1.5 text-xs">
+                  <p className="flex justify-between">
+                    <span className="text-navy-400">Pro Monat:</span>
+                    <span className="text-white font-medium">13,3 Std</span>
+                  </p>
+                  <p className="flex justify-between">
+                    <span className="text-navy-400">Abende zurück:</span>
+                    <span className="text-white font-medium">6,7/Monat</span>
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -74,19 +85,30 @@ export default function ConcreteExamplesCards() {
 
               <div className="mb-6">
                 <div className="text-5xl font-bold text-white mb-2">
-                  128.000€
+                  800 Std
                 </div>
                 <p className="text-sm text-navy-300">
-                  Jährliches Einsparpotenzial
+                  Kapazität pro Jahr freigesetzt
                 </p>
               </div>
 
-              <div className="space-y-2 text-xs text-navy-400 bg-navy-900/50 rounded-lg p-4">
-                <p><span className="text-navy-500">Mandanten:</span> 500</p>
-                <p><span className="text-navy-500">Pakete/Jahr:</span> 2</p>
-                <p><span className="text-navy-500">Zeitersparnis:</span> 2 Std manuell</p>
-                <p><span className="text-navy-500">Stundensatz:</span> 80€/h</p>
-                <p><span className="text-navy-500">Adoption:</span> 80%</p>
+              <div className="space-y-3 text-sm text-navy-300 bg-navy-900/50 rounded-lg p-4">
+                <div className="grid grid-cols-2 gap-2 pb-3 border-b border-navy-700">
+                  <p><span className="text-navy-500">Mandanten:</span> 500</p>
+                  <p><span className="text-navy-500">Pakete/Jahr:</span> 2</p>
+                  <p><span className="text-navy-500">Zeitersparnis:</span> 60 Min</p>
+                  <p><span className="text-navy-500">Adoption:</span> 80%</p>
+                </div>
+                <div className="space-y-1.5 text-xs">
+                  <p className="flex justify-between">
+                    <span className="text-navy-400">Pro Monat:</span>
+                    <span className="text-white font-medium">66,7 Std</span>
+                  </p>
+                  <p className="flex justify-between">
+                    <span className="text-navy-400">Abende zurück:</span>
+                    <span className="text-white font-medium">33,3/Monat</span>
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -94,7 +116,7 @@ export default function ConcreteExamplesCards() {
 
         {/* Footer Note */}
         <p className="mt-8 text-center text-xs text-navy-500">
-          Berechnungen basieren auf der Formel: N × f × h × C × a. Alle Werte sind Richtwerte
+          Berechnungen basieren auf der Formel: N × f × (m/60) × a. Alle Werte sind Richtwerte
           aus Implementierungsprojekten.
         </p>
       </div>

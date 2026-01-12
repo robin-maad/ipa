@@ -28,6 +28,7 @@ export function ROICalculator({ onEmailRequest, className = '' }: ROICalculatorP
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   // Debounced tracking (1000ms delay)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedTrack = useCallback(createDebouncedCalculatorTracking(1000), []);
 
   // Recalculate outputs whenever inputs change

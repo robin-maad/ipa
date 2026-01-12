@@ -1,0 +1,309 @@
+import { describe, it, expect } from '@jest/globals';
+import {
+  calculateROI,
+  DEFAULT_INPUTS,
+  formatDecimalHours,
+  formatEvenings,
+  formatHours,
+  formatPercentage,
+  type ROICalculatorInputs,
+} from './roi';
+
+describe('ROI Calculator (Time-Based)', () => {
+  describe('calculateROI', () => {
+    it('should calculate default scenario correctly (80 hours/year)', () => {
+      const result = calculateROI(DEFAULT_INPUTS);
+
+      // Expected: 50 × 2 × (60/60)h × 0.8 = 80 hours/year
+      expect(result.totalHoursAnnual).toBe(80);
+      expect(result.totalHoursMonthly).toBe(6.7); // 80 / 12 = 6.67 → 6.7
+      expect(result.totalHoursWeekly).toBe(1.5); // 80 / 52 = 1.54 → 1.5
+
+      // Owner (30%) = 24 hours/year → 2.0 hours/month
+      expect(result.ownerHoursMonthly).toBe(2.0);
+
+      // Team (70%) = 56 hours/year → 4.7 hours/month
+      expect(result.teamHoursMonthly).toBe(4.7);
+
+      // Evenings saved (total monthly hours ÷ 2)
+      expect(result.eveningsSavedMonthly).toBe(3.3); // 6.7 / 2 = 3.35 → 3.3
+    });
+
+    it('should match Card A example (Kleinere Kanzlei: 160 hours)', () => {
+      const inputs: ROICalculatorInputs = {
+        clients: 100,
+        packagesPerYear: 2,
+        minutesSaved: 60, // 1 hour
+        adoption: 0.8,
+        ownerShare: 0.3,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Expected: 100 × 2 × (60/60)h × 0.8 = 160 hours/year
+      expect(result.totalHoursAnnual).toBe(160);
+      expect(result.totalHoursMonthly).toBe(13.3); // 160 / 12 = 13.33 → 13.3
+      expect(result.totalHoursWeekly).toBe(3.1); // 160 / 52 = 3.08 → 3.1
+
+      // Owner (30%) = 48 hours/year → 4.0 hours/month
+      expect(result.ownerHoursMonthly).toBe(4.0);
+
+      // Team (70%) = 112 hours/year → 9.3 hours/month
+      expect(result.teamHoursMonthly).toBe(9.3);
+
+      // Evenings saved
+      expect(result.eveningsSavedMonthly).toBe(6.7); // 13.3 / 2 = 6.65 → 6.7
+    });
+
+    it('should match Card B example (Mittlere Kanzlei: 800 hours)', () => {
+      const inputs: ROICalculatorInputs = {
+        clients: 500,
+        packagesPerYear: 2,
+        minutesSaved: 60, // 1 hour
+        adoption: 0.8,
+        ownerShare: 0.3,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Expected: 500 × 2 × (60/60)h × 0.8 = 800 hours/year
+      expect(result.totalHoursAnnual).toBe(800);
+      expect(result.totalHoursMonthly).toBe(66.7); // 800 / 12 = 66.67 → 66.7
+      expect(result.totalHoursWeekly).toBe(15.4); // 800 / 52 = 15.38 → 15.4
+
+      // Owner (30%) = 240 hours/year → 20.0 hours/month
+      expect(result.ownerHoursMonthly).toBe(20.0);
+
+      // Team (70%) = 560 hours/year → 46.7 hours/month
+      expect(result.teamHoursMonthly).toBe(46.7);
+
+      // Evenings saved
+      expect(result.eveningsSavedMonthly).toBe(33.3); // 66.7 / 2 = 33.35 → 33.3
+    });
+
+    it('should handle owner share of 0% (100% team)', () => {
+      const inputs: ROICalculatorInputs = {
+        ...DEFAULT_INPUTS,
+        ownerShare: 0.0,
+      };
+
+      const result = calculateROI(inputs);
+
+      expect(result.ownerHoursMonthly).toBe(0.0);
+      expect(result.teamHoursMonthly).toBe(6.7); // All hours to team
+    });
+
+    it('should handle owner share of 100% (0% team)', () => {
+      const inputs: ROICalculatorInputs = {
+        ...DEFAULT_INPUTS,
+        ownerShare: 1.0,
+      };
+
+      const result = calculateROI(inputs);
+
+      expect(result.ownerHoursMonthly).toBe(6.7); // All hours to owner
+      expect(result.teamHoursMonthly).toBe(0.0);
+    });
+
+    it('should handle owner share of 50/50', () => {
+      const inputs: ROICalculatorInputs = {
+        ...DEFAULT_INPUTS,
+        ownerShare: 0.5,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Total monthly: 6.7 hours
+      // Owner (50%): 3.3, Team (50%): 3.3
+      expect(result.ownerHoursMonthly).toBe(3.3);
+      expect(result.teamHoursMonthly).toBe(3.3);
+    });
+
+    it('should handle minimum values', () => {
+      const inputs: ROICalculatorInputs = {
+        clients: 10,
+        packagesPerYear: 1,
+        minutesSaved: 10,
+        adoption: 0.5,
+        ownerShare: 0.3,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Expected: 10 × 1 × (10/60)h × 0.5 = 0.83 hours/year → 1
+      expect(result.totalHoursAnnual).toBe(1);
+      expect(result.totalHoursMonthly).toBe(0.1); // 1 / 12 = 0.08 → 0.1
+      expect(result.totalHoursWeekly).toBe(0.0); // 1 / 52 = 0.02 → 0.0
+    });
+
+    it('should handle maximum values', () => {
+      const inputs: ROICalculatorInputs = {
+        clients: 500,
+        packagesPerYear: 12,
+        minutesSaved: 180, // 3 hours
+        adoption: 1.0,
+        ownerShare: 0.3,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Expected: 500 × 12 × (180/60)h × 1.0 = 18,000 hours/year
+      expect(result.totalHoursAnnual).toBe(18000);
+      expect(result.totalHoursMonthly).toBe(1500.0); // 18000 / 12
+      expect(result.totalHoursWeekly).toBe(346.2); // 18000 / 52 = 346.15 → 346.2
+
+      // Owner (30%) = 5400 hours/year → 450.0 hours/month
+      expect(result.ownerHoursMonthly).toBe(450.0);
+
+      // Team (70%) = 12600 hours/year → 1050.0 hours/month
+      expect(result.teamHoursMonthly).toBe(1050.0);
+    });
+
+    it('should round all outputs to 1 decimal place', () => {
+      const inputs: ROICalculatorInputs = {
+        clients: 33,
+        packagesPerYear: 3,
+        minutesSaved: 55,
+        adoption: 0.77,
+        ownerShare: 0.33,
+      };
+
+      const result = calculateROI(inputs);
+
+      // All values should have at most 1 decimal place
+      expect(result.totalHoursMonthly.toString()).toMatch(/^\d+\.\d$/);
+      expect(result.totalHoursWeekly.toString()).toMatch(/^\d+\.\d$/);
+      expect(result.ownerHoursMonthly.toString()).toMatch(/^\d+\.\d$/);
+      expect(result.teamHoursMonthly.toString()).toMatch(/^\d+\.\d$/);
+      expect(result.eveningsSavedMonthly.toString()).toMatch(/^\d+\.\d$/);
+    });
+
+    it('should ensure owner + team equals total monthly hours', () => {
+      const result = calculateROI(DEFAULT_INPUTS);
+
+      const ownerPlusTeam = Math.round((result.ownerHoursMonthly + result.teamHoursMonthly) * 10) / 10;
+      expect(ownerPlusTeam).toBe(result.totalHoursMonthly);
+    });
+  });
+
+  describe('Number Formatting', () => {
+    describe('formatDecimalHours', () => {
+      it('should format with German decimal separator', () => {
+        expect(formatDecimalHours(6.7)).toBe('6,7 Std');
+        expect(formatDecimalHours(13.3)).toBe('13,3 Std');
+        expect(formatDecimalHours(66.7)).toBe('66,7 Std');
+      });
+
+      it('should handle whole numbers', () => {
+        expect(formatDecimalHours(10.0)).toBe('10,0 Std');
+        expect(formatDecimalHours(100.0)).toBe('100,0 Std');
+      });
+
+      it('should handle zero', () => {
+        expect(formatDecimalHours(0.0)).toBe('0,0 Std');
+      });
+    });
+
+    describe('formatEvenings', () => {
+      it('should format with German decimal separator', () => {
+        expect(formatEvenings(3.3)).toBe('3,3 Abende');
+        expect(formatEvenings(6.7)).toBe('6,7 Abende');
+        expect(formatEvenings(33.3)).toBe('33,3 Abende');
+      });
+
+      it('should handle whole numbers', () => {
+        expect(formatEvenings(5.0)).toBe('5,0 Abende');
+      });
+
+      it('should handle zero', () => {
+        expect(formatEvenings(0.0)).toBe('0,0 Abende');
+      });
+    });
+
+    describe('formatHours', () => {
+      it('should format with German thousands separator', () => {
+        expect(formatHours(80)).toBe('80 Std');
+        expect(formatHours(160)).toBe('160 Std');
+        expect(formatHours(800)).toBe('800 Std');
+        expect(formatHours(18000)).toBe('18.000 Std');
+      });
+
+      it('should not show decimals', () => {
+        expect(formatHours(80.5)).toBe('81 Std'); // Rounded
+        expect(formatHours(80.4)).toBe('80 Std'); // Rounded
+      });
+
+      it('should handle zero', () => {
+        expect(formatHours(0)).toBe('0 Std');
+      });
+    });
+
+    describe('formatPercentage', () => {
+      it('should convert decimal to percentage', () => {
+        expect(formatPercentage(0.3)).toBe('30%');
+        expect(formatPercentage(0.5)).toBe('50%');
+        expect(formatPercentage(0.8)).toBe('80%');
+        expect(formatPercentage(1.0)).toBe('100%');
+      });
+
+      it('should round to whole number', () => {
+        expect(formatPercentage(0.755)).toBe('76%');
+        expect(formatPercentage(0.754)).toBe('75%');
+      });
+
+      it('should handle zero', () => {
+        expect(formatPercentage(0.0)).toBe('0%');
+      });
+    });
+  });
+
+  describe('Formula Verification', () => {
+    it('should match the formula: N × f × (m/60) × a', () => {
+      const N = 100; // clients
+      const f = 2;   // packagesPerYear
+      const m = 60;  // minutesSaved
+      const a = 0.8; // adoption
+
+      const inputs: ROICalculatorInputs = {
+        clients: N,
+        packagesPerYear: f,
+        minutesSaved: m,
+        adoption: a,
+        ownerShare: 0.3,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Manual calculation: 100 × 2 × (60/60) × 0.8 = 160
+      const expectedAnnual = N * f * (m / 60) * a;
+      expect(result.totalHoursAnnual).toBe(expectedAnnual);
+    });
+
+    it('should verify owner/team split formula', () => {
+      const ownerShare = 0.3;
+      const totalAnnual = 80;
+
+      const inputs: ROICalculatorInputs = {
+        ...DEFAULT_INPUTS,
+        ownerShare,
+      };
+
+      const result = calculateROI(inputs);
+
+      // Owner monthly = (total annual × owner share) / 12
+      const expectedOwnerMonthly = Math.round((totalAnnual * ownerShare) / 12 * 10) / 10;
+      expect(result.ownerHoursMonthly).toBe(expectedOwnerMonthly);
+
+      // Team monthly = (total annual × (1 - owner share)) / 12
+      const expectedTeamMonthly = Math.round((totalAnnual * (1 - ownerShare)) / 12 * 10) / 10;
+      expect(result.teamHoursMonthly).toBe(expectedTeamMonthly);
+    });
+
+    it('should verify evenings formula: total monthly hours ÷ 2', () => {
+      const result = calculateROI(DEFAULT_INPUTS);
+
+      const expectedEvenings = Math.round((result.totalHoursMonthly / 2) * 10) / 10;
+      expect(result.eveningsSavedMonthly).toBe(expectedEvenings);
+    });
+  });
+});

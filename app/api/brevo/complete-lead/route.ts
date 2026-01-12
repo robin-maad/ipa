@@ -87,16 +87,20 @@ export async function POST(request: NextRequest) {
       LEAD_STATUS: 'complete',
     };
 
-    // Add calculator data if provided
+    // Add calculator data if provided (time-based)
     if (calculatorData) {
-      attributes.ROI_CLIENTS = calculatorData.clients;
-      attributes.ROI_PACKAGES_PER_YEAR = calculatorData.packagesPerYear;
-      attributes.ROI_MINUTES_SAVED = calculatorData.minutesSaved;
-      attributes.ROI_HOURLY_RATE = calculatorData.hourlyRate;
-      attributes.ROI_ADOPTION = calculatorData.adoption;
-      attributes.ROI_ANNUAL_COST = calculatorData.annualCost;
-      attributes.ROI_SAVINGS_ANNUAL = calculatorData.savingsAnnual;
-      attributes.ROI_BREAK_EVEN_MONTHS = calculatorData.breakEvenMonths;
+      // Inputs
+      attributes.ROI_CLIENTS = calculatorData.inputs.clients;
+      attributes.ROI_PACKAGES_PER_YEAR = calculatorData.inputs.packagesPerYear;
+      attributes.ROI_MINUTES_SAVED = calculatorData.inputs.minutesSaved;
+      attributes.ROI_ADOPTION = Math.round(calculatorData.inputs.adoption * 100); // Store as percentage
+      attributes.ROI_OWNER_SHARE = Math.round(calculatorData.inputs.ownerShare * 100); // Store as percentage
+      // Outputs
+      attributes.ROI_TOTAL_HOURS_ANNUAL = calculatorData.outputs.totalHoursAnnual;
+      attributes.ROI_TOTAL_HOURS_MONTHLY = calculatorData.outputs.totalHoursMonthly;
+      attributes.ROI_OWNER_HOURS_MONTHLY = calculatorData.outputs.ownerHoursMonthly;
+      attributes.ROI_TEAM_HOURS_MONTHLY = calculatorData.outputs.teamHoursMonthly;
+      attributes.ROI_EVENINGS_SAVED = calculatorData.outputs.eveningsSavedMonthly;
     }
 
     // Update contact in Brevo with full data
@@ -109,8 +113,13 @@ export async function POST(request: NextRequest) {
     // Send transactional email with PDF attachment
     const emailHTML = buildROIEmailHTML({
       firstName,
-      savingsAnnual: calculatorData?.savingsAnnual || 0,
-      breakEvenMonths: calculatorData?.breakEvenMonths || null,
+      totalHoursAnnual: calculatorData?.outputs.totalHoursAnnual || 0,
+      totalHoursMonthly: calculatorData?.outputs.totalHoursMonthly || 0,
+      totalHoursWeekly: calculatorData?.outputs.totalHoursWeekly || 0,
+      ownerHoursMonthly: calculatorData?.outputs.ownerHoursMonthly || 0,
+      teamHoursMonthly: calculatorData?.outputs.teamHoursMonthly || 0,
+      eveningsSavedMonthly: calculatorData?.outputs.eveningsSavedMonthly || 0,
+      ownerShare: calculatorData?.inputs.ownerShare || 0.3,
     });
 
     // Get PDF URL (assuming it's hosted)

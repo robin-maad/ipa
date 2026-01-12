@@ -1,16 +1,11 @@
 /**
- * Analytics Event Tracking for ROI Calculator Landing Page
+ * Analytics Event Tracking for ROI Calculator Landing Page (Time-Based)
  * Integrates with existing GTM setup
  */
 
 import type { ROICalculatorInputs, ROICalculatorOutputs } from '../calculator/roi';
 
-// Extend Window interface for gtag
-declare global {
-  interface Window {
-    gtag?: (command: string, eventName: string, params?: Record<string, any>) => void;
-  }
-}
+// Note: Window.gtag type is declared in lib/consent/google-consent-mode.ts
 
 /**
  * Check if gtag is available (respects cookie consent)
@@ -99,7 +94,7 @@ export function trackFormSubmitError(params: {
 }
 
 // ============================================================================
-// Calculator Events
+// Calculator Events (Time-Based)
 // ============================================================================
 
 /**
@@ -113,19 +108,20 @@ export function trackCalculatorChange(
   if (!isGtagAvailable()) return;
 
   window.gtag!('event', 'calculator_change', {
-    calculator_type: 'roi',
+    calculator_type: 'roi_time_based',
     // Inputs
     clients: inputs.clients,
     packages_per_year: inputs.packagesPerYear,
     minutes_saved: inputs.minutesSaved,
-    hourly_rate: inputs.hourlyRate,
     adoption: Math.round(inputs.adoption * 100), // Send as percentage (80 not 0.8)
-    annual_cost: inputs.annualCost,
-    // Outputs
-    savings_annual: outputs.savingsAnnual,
-    savings_monthly: outputs.savingsMonthly,
-    break_even_months: outputs.breakEvenMonths,
-    capacity_hours_annual: outputs.capacityHoursAnnual,
+    owner_share: Math.round(inputs.ownerShare * 100), // Send as percentage (30 not 0.3)
+    // Outputs (Time-Based)
+    total_hours_annual: outputs.totalHoursAnnual,
+    total_hours_monthly: outputs.totalHoursMonthly,
+    total_hours_weekly: outputs.totalHoursWeekly,
+    owner_hours_monthly: outputs.ownerHoursMonthly,
+    team_hours_monthly: outputs.teamHoursMonthly,
+    evenings_saved_monthly: outputs.eveningsSavedMonthly,
   });
 }
 
@@ -158,7 +154,7 @@ export function trackCalculatorCTAClick(): void {
 
   window.gtag!('event', 'calculator_cta_click', {
     cta_type: 'email_results',
-    calculator_type: 'roi',
+    calculator_type: 'roi_time_based',
   });
 }
 
@@ -184,17 +180,17 @@ export function trackPDFDownloadClick(source: 'email' | 'thank_you_page' | 'fina
 
 /**
  * Track lead conversion (fires after Step 2 completion)
+ * Value now based on time capacity instead of EUR savings
  */
 export function trackLeadConversion(params: {
-  value?: number; // Optional: savings annual as conversion value
-  currency?: string;
+  totalHoursAnnual?: number; // Optional: time capacity as conversion value
 }): void {
   if (!isGtagAvailable()) return;
 
   window.gtag!('event', 'conversion', {
     send_to: 'AW-XXXXXXXX/XXXXXXXXX', // Replace with actual conversion ID
-    value: params.value,
-    currency: params.currency || 'EUR',
+    value: params.totalHoursAnnual, // Track hours saved as value metric
+    currency: 'HRS', // Custom currency for hours
   });
 }
 

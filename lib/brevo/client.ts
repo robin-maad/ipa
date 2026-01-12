@@ -23,14 +23,18 @@ export interface BrevoContact {
     CONSENT_CONTACT?: boolean;
     CONSENT_NEWSLETTER?: boolean;
     LEAD_STATUS?: 'partial' | 'complete';
+    // ROI Calculator Inputs (Time-Based)
     ROI_CLIENTS?: number;
     ROI_PACKAGES_PER_YEAR?: number;
     ROI_MINUTES_SAVED?: number;
-    ROI_HOURLY_RATE?: number;
-    ROI_ADOPTION?: number;
-    ROI_ANNUAL_COST?: number;
-    ROI_SAVINGS_ANNUAL?: number;
-    ROI_BREAK_EVEN_MONTHS?: number | null;
+    ROI_ADOPTION?: number; // Percentage (0-100)
+    ROI_OWNER_SHARE?: number; // Percentage (0-100)
+    // ROI Calculator Outputs (Time-Based)
+    ROI_TOTAL_HOURS_ANNUAL?: number;
+    ROI_TOTAL_HOURS_MONTHLY?: number;
+    ROI_OWNER_HOURS_MONTHLY?: number;
+    ROI_TEAM_HOURS_MONTHLY?: number;
+    ROI_EVENINGS_SAVED?: number;
     [key: string]: any;
   };
   listIds?: number[];
@@ -142,21 +146,34 @@ export async function sendTransactionalEmail(email: BrevoEmail): Promise<void> {
 
 export function buildROIEmailHTML(params: {
   firstName: string;
-  savingsAnnual: number;
-  breakEvenMonths: number | null;
+  totalHoursAnnual: number;
+  totalHoursMonthly: number;
+  totalHoursWeekly: number;
+  ownerHoursMonthly: number;
+  teamHoursMonthly: number;
+  eveningsSavedMonthly: number;
+  ownerShare: number;
 }): string {
-  const { firstName, savingsAnnual, breakEvenMonths } = params;
+  const {
+    firstName,
+    totalHoursAnnual,
+    totalHoursMonthly,
+    totalHoursWeekly,
+    ownerHoursMonthly,
+    teamHoursMonthly,
+    eveningsSavedMonthly,
+    ownerShare
+  } = params;
 
-  // Format currency German style
-  const formattedSavings = new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-    maximumFractionDigits: 0,
-  }).format(savingsAnnual);
+  // Format time values German style
+  const formatHours = (value: number, decimals: number = 1) =>
+    new Intl.NumberFormat('de-DE', {
+      maximumFractionDigits: decimals,
+      minimumFractionDigits: decimals,
+    }).format(value);
 
-  const breakEvenText = breakEvenMonths !== null
-    ? `Ihr Break-even liegt bei ca. ${new Intl.NumberFormat('de-DE', { maximumFractionDigits: 1 }).format(breakEvenMonths)} Monaten.`
-    : 'Bei Ihren aktuellen Eingaben liegt der Break-even unter einem Monat.';
+  const ownerPercent = Math.round(ownerShare * 100);
+  const teamPercent = 100 - ownerPercent;
 
   return `
 <!DOCTYPE html>
@@ -192,7 +209,7 @@ export function buildROIEmailHTML(params: {
               </p>
 
               <p style="margin: 0 0 20px 0; color: #334155; font-size: 16px; line-height: 1.6;">
-                vielen Dank für Ihr Interesse an unserem ROI-Rechner. Basierend auf Ihren Angaben haben wir folgendes Einsparpotenzial ermittelt:
+                vielen Dank für Ihr Interesse an unserem ROI-Rechner. Basierend auf Ihren Angaben haben wir folgendes Zeitgewinn-Potenzial ermittelt:
               </p>
 
               <!-- Results Box -->
@@ -200,19 +217,60 @@ export function buildROIEmailHTML(params: {
                 <tr>
                   <td style="padding: 30px;">
                     <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                      <!-- Annual Capacity -->
                       <tr>
-                        <td style="padding-bottom: 15px;">
-                          <p style="margin: 0; color: #64748b; font-size: 14px;">Jährliche Ersparnis</p>
-                          <p style="margin: 5px 0 0 0; color: #0f172a; font-size: 32px; font-weight: bold;">${formattedSavings}</p>
+                        <td style="padding-bottom: 20px; border-bottom: 1px solid #cbd5e1;">
+                          <p style="margin: 0; color: #64748b; font-size: 14px;">Kapazität pro Jahr</p>
+                          <p style="margin: 5px 0 0 0; color: #0f172a; font-size: 32px; font-weight: bold;">${formatHours(totalHoursAnnual, 0)} Stunden</p>
                         </td>
                       </tr>
+
+                      <!-- Monthly/Weekly -->
                       <tr>
-                        <td>
-                          <p style="margin: 0; color: #64748b; font-size: 14px;">Break-even</p>
-                          <p style="margin: 5px 0 0 0; color: #0f172a; font-size: 18px; font-weight: 600;">${breakEvenText}</p>
+                        <td style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #cbd5e1;">
+                          <p style="margin: 0 0 10px 0; color: #64748b; font-size: 14px;">Zeitgewinn pro Monat / Woche</p>
+                          <p style="margin: 0; color: #0f172a; font-size: 18px; font-weight: 600;">${formatHours(totalHoursMonthly)} Std/Monat · ${formatHours(totalHoursWeekly)} Std/Woche</p>
+                        </td>
+                      </tr>
+
+                      <!-- Owner/Team Breakdown -->
+                      <tr>
+                        <td style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #cbd5e1;">
+                          <p style="margin: 0 0 10px 0; color: #64748b; font-size: 14px;">Aufgeteilt nach Rolle</p>
+                          <p style="margin: 0; color: #0f172a; font-size: 16px;">
+                            <strong>Owner (${ownerPercent}%):</strong> ${formatHours(ownerHoursMonthly)} Std/Monat<br>
+                            <strong>Team (${teamPercent}%):</strong> ${formatHours(teamHoursMonthly)} Std/Monat
+                          </p>
+                        </td>
+                      </tr>
+
+                      <!-- Evenings Saved -->
+                      <tr>
+                        <td style="padding-top: 20px;">
+                          <p style="margin: 0 0 10px 0; color: #64748b; font-size: 14px;">Abende zurück pro Monat</p>
+                          <p style="margin: 0; color: #0f172a; font-size: 18px; font-weight: 600;">${formatHours(eveningsSavedMonthly)} Abende</p>
+                          <p style="margin: 5px 0 0 0; color: #64748b; font-size: 12px;">Annahme: 2 Stunden pro Abend</p>
                         </td>
                       </tr>
                     </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Copy Hooks Box -->
+              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #ecfdf5; border-left: 4px solid #14b8a6; border-radius: 8px; margin: 30px 0;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <p style="margin: 0 0 12px 0; color: #0f172a; font-size: 16px; font-weight: 600;">Das bedeutet konkret:</p>
+                    <p style="margin: 0 0 10px 0; color: #334155; font-size: 15px; line-height: 1.6;">
+                      ✓ Das ist Zeit, die Sie zurückbekommen, nicht nur Kosten, die Sie sparen.
+                    </p>
+                    <p style="margin: 0 0 10px 0; color: #334155; font-size: 15px; line-height: 1.6;">
+                      ✓ Mehr Kapazität für Mandantengespräche, Qualitätssicherung und proaktive Beratung.
+                    </p>
+                    <p style="margin: 0; color: #334155; font-size: 15px; line-height: 1.6;">
+                      ✓ Weniger Rückfragen, weniger Nacharbeit, weniger Stressspitzen.
+                    </p>
                   </td>
                 </tr>
               </table>

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Turnstile } from '@/components/ui/Turnstile';
+import Turnstile from '@/components/ui/Turnstile';
 import {
   step1Schema,
   step2Schema,
@@ -437,7 +437,7 @@ function Step2Form({
 
       {/* Turnstile */}
       <div>
-        <Turnstile onVerify={setTurnstileToken} />
+        <Turnstile onSuccess={setTurnstileToken} />
       </div>
 
       {/* Error Message */}

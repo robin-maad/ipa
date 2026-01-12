@@ -1,6 +1,7 @@
 /**
  * Google Consent Mode v2 Integration
  * Manages consent state for Google Analytics and GTM
+ * Note: Window types (gtag, dataLayer) are declared in types/global.d.ts
  */
 
 /**

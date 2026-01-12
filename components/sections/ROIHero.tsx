@@ -46,11 +46,10 @@ export default function ROIHero() {
           <div className="flex flex-col justify-center">
             {/* H1 Headline */}
             <h1 className="mb-6 text-4xl font-bold leading-tight text-white lg:text-5xl xl:text-6xl">
-              Sparen Sie jährlich{' '}
               <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
-                10.000€+
-              </span>
-              , schon mit 50 Mandanten.
+                80 Stunden im Jahr
+              </span>{' '}
+              zurück = Kapazität für 10+ Zusatzmandanten
             </h1>
 
             {/* Subheadline */}
