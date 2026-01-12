@@ -1,93 +1,80 @@
-import ProcessAnalysisForm from '@/components/forms/ProcessAnalysisForm';
-import { Phone, Mail } from 'lucide-react';
+'use client';
 
+import { Button } from '@/components/ui/button';
+import { Shield, CheckCircle } from 'lucide-react';
+
+/**
+ * Final CTA Section
+ * Matches spec: "Bereit für Ihren ROI-Check?"
+ */
 export default function FinalCTA() {
+  const handleScrollToTop = () => {
+    const topForm = document.getElementById('hero-form');
+    if (topForm) {
+      topForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Optional highlight effect
+      topForm.classList.add('ring-2', 'ring-teal-500', 'ring-offset-2', 'ring-offset-navy-900');
+      setTimeout(() => {
+        topForm.classList.remove('ring-2', 'ring-teal-500', 'ring-offset-2', 'ring-offset-navy-900');
+      }, 2000);
+    } else {
+      // Fallback: scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="contact" className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 py-20 text-white">
-      <div className="container mx-auto max-w-7xl px-4">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left Column - Info */}
-          <div>
-            <div className="mb-6 inline-block rounded-full bg-teal-600/20 px-4 py-2 text-sm font-semibold text-teal-400">
-              Bereit für den nächsten Schritt?
-            </div>
-            <h2 className="mb-6 text-3xl font-bold lg:text-4xl">
-              Ihr Weg zu einer produktiveren Zukunft
-            </h2>
-            <p className="mb-8 text-lg text-gray-300">
-              Vereinbaren Sie jetzt Ihre kostenlose und vertrauliche
-              Prozessanalyse. In 30 Minuten identifizieren wir Ihren #1 Engpass
-              und zeigen konkrete Lösungswege auf.
-            </p>
+    <section id="final-cta" className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 py-20 text-white">
+      <div className="container mx-auto max-w-4xl px-4 text-center">
+        {/* Badge */}
+        <div className="mb-6 inline-block rounded-full bg-teal-600/20 px-4 py-2 text-sm font-semibold text-teal-400">
+          Jetzt starten
+        </div>
 
-            {/* What to Expect */}
-            <div className="mb-8 space-y-4">
-              <h3 className="text-xl font-semibold">Was Sie erwarten können:</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-teal-400" />
-                  <span className="text-gray-300">
-                    <strong className="text-white">Kostenlos:</strong> Keine
-                    versteckten Kosten oder Verpflichtungen
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-teal-400" />
-                  <span className="text-gray-300">
-                    <strong className="text-white">Vertraulich:</strong> Alle
-                    Informationen werden streng vertraulich behandelt
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-teal-400" />
-                  <span className="text-gray-300">
-                    <strong className="text-white">Konkret:</strong> Spezifische
-                    Empfehlungen für Ihre Kanzlei
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-teal-400" />
-                  <span className="text-gray-300">
-                    <strong className="text-white">Schnell:</strong> Erste
-                    ROI-Schätzung in 30 Minuten
-                  </span>
-                </li>
-              </ul>
-            </div>
+        {/* Heading */}
+        <h2 className="mb-4 text-3xl font-bold lg:text-4xl">
+          Bereit für Ihren ROI-Check?
+        </h2>
 
-            {/* Alternative Contact */}
-            <div className="rounded-xl border border-gray-700 bg-white/5 p-6 backdrop-blur-sm">
-              <h3 className="mb-4 text-lg font-semibold">
-                Oder kontaktieren Sie uns direkt:
-              </h3>
-              <div className="space-y-3">
-                <a
-                  href="mailto:alex@smithundpartners.de"
-                  className="flex items-center gap-3 text-gray-300 transition-colors hover:text-teal-400"
-                >
-                  <Mail className="h-5 w-5" />
-                  <span>alex@smithundpartners.de</span>
-                </a>
-                <a
-                  href="tel:+491708211993"
-                  className="flex items-center gap-3 text-gray-300 transition-colors hover:text-teal-400"
-                >
-                  <Phone className="h-5 w-5" />
-                  <span>+49 170 8211993</span>
-                </a>
-              </div>
-            </div>
+        {/* Subheading */}
+        <p className="mb-10 text-lg text-gray-300 max-w-2xl mx-auto">
+          Laden Sie den ROI-Rechner als PDF herunter, oder senden Sie sich das Ergebnis aus dem
+          Kalkulator per E-Mail.
+        </p>
+
+        {/* CTA Button */}
+        <div className="mb-8">
+          <Button
+            size="lg"
+            onClick={handleScrollToTop}
+            className="px-8 py-6 text-lg font-semibold"
+          >
+            Jetzt kostenlos herunterladen
+          </Button>
+        </div>
+
+        {/* Trust Indicators */}
+        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400">
+          <div className="flex items-center gap-2">
+            <Shield className="h-4 w-4 text-teal-500" />
+            <span>100% DSGVO-konform</span>
           </div>
-
-          {/* Right Column - Form */}
-          <div>
-            <div className="rounded-xl border border-gray-700 bg-white p-8 shadow-2xl">
-              <h3 className="mb-6 text-2xl font-bold text-navy-900">
-                Kostenlose Prozessanalyse vereinbaren
-              </h3>
-              <ProcessAnalysisForm />
-            </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4 text-teal-500" />
+            <span>Juristisch geprüft</span>
           </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4 text-teal-500" />
+            <span>Keine Spam-Garantie</span>
+          </div>
+        </div>
+
+        {/* Optional: Security Reassurance */}
+        <div className="mt-12 rounded-xl border border-navy-700 bg-navy-800/30 backdrop-blur-sm p-6">
+          <p className="text-sm text-navy-300">
+            Ihre Daten werden ausschließlich zur Zusendung des ROI-Rechners verwendet und nicht
+            an Dritte weitergegeben. Sie können sich jederzeit abmelden.
+          </p>
         </div>
       </div>
     </section>
