@@ -51,10 +51,10 @@ export default function Economics() {
               </div>
               <div className="mb-2 text-5xl font-bold text-navy-900">+30%</div>
               <h3 className="mb-3 text-lg font-semibold text-navy-800">
-                Mandantenkapazität
+                Servicekapazität
               </h3>
               <p className="mb-4 text-sm text-gray-600">
-                Erweiterte Kapazität zur Betreuung zusätzlicher Mandanten ohne
+                Erweiterte Kapazität zur Betreuung zusätzlicher Kunden ohne
                 neues Personal.
               </p>
               <div className="flex items-center gap-2 rounded-md bg-blue-50 px-3 py-2">
@@ -117,8 +117,8 @@ export default function Economics() {
         {/* Bottom Note */}
         <div className="mt-12 text-center">
           <p className="text-sm text-gray-500">
-            * Durchschnittswerte basierend auf Pilotprojekten mit deutschen
-            Steuerkanzleien (5-50 Mitarbeiter)
+            * Durchschnittswerte basierend auf Pilotprojekten mit
+            Dienstleistungsunternehmen (5-50 Mitarbeiter)
           </p>
         </div>
       </div>

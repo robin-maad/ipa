@@ -8,10 +8,10 @@ export default function ProblemStats() {
         {/* Section Header */}
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold text-navy-900 lg:text-4xl">
-            Der Engpass ist nicht mehr die Mandantenakquise
+            Der Engpass ist nicht mehr die Kundengewinnung
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Es ist die Dienstleistungserbringung
+            Es ist die Serviceerbringung und Skalierung
           </p>
         </div>
 
@@ -29,7 +29,7 @@ export default function ProblemStats() {
               </h3>
               <p className="text-sm leading-relaxed text-gray-600">
                 Durchschnittlich 40% der Arbeitszeit Ihrer Experten geht für
-                manuelle Dateneingabe und repetitive administrative Aufgaben
+                manuelle Dateneingabe und repetitive Prozesse
                 verloren.
               </p>
               <div className="mt-4 rounded-md bg-red-50 px-3 py-2">
@@ -52,11 +52,11 @@ export default function ProblemStats() {
               </h3>
               <p className="text-sm leading-relaxed text-gray-600">
                 Bearbeitungsverzögerungen von 2 bis 4 Wochen beeinträchtigen
-                die Mandantenzufriedenheit und Ihre Wettbewerbsfähigkeit.
+                die Kundenzufriedenheit und Ihre Reaktionsfähigkeit.
               </p>
               <div className="mt-4 rounded-md bg-orange-50 px-3 py-2">
                 <p className="text-xs font-medium text-orange-700">
-                  Hohe Frustration bei Mandanten
+                  Hohe Frustration bei Kunden
                 </p>
               </div>
             </CardContent>
@@ -73,12 +73,12 @@ export default function ProblemStats() {
                 Ungenutztes Potenzial
               </h3>
               <p className="text-sm leading-relaxed text-gray-600">
-                "Wir könnten 30% mehr Mandanten betreuen, wenn wir das Personal
-                hätten." — Steuerberater mit 15 Mitarbeitern
+                "Wir könnten 30% mehr Kunden betreuen, wenn wir die Kapazität
+                hätten." — Dienstleister mit 15 Mitarbeitern
               </p>
               <div className="mt-4 rounded-md bg-blue-50 px-3 py-2">
                 <p className="text-xs font-medium text-blue-700">
-                  Qualifizierte Steuerfachkräfte nicht verfügbar
+                  Qualifizierte Fachkräfte nicht verfügbar
                 </p>
               </div>
             </CardContent>
@@ -88,12 +88,12 @@ export default function ProblemStats() {
         {/* Bottom Quote */}
         <div className="mt-16 rounded-xl border-l-4 border-teal-600 bg-white p-8 shadow-md">
           <blockquote className="text-lg italic text-gray-700">
-            "Der Engpass ist nicht mehr die Mandantenakquise; es ist die
-            Dienstleistungserbringung. Steuerfachkräfte sind nicht zu finden,
+            "Der Engpass ist nicht mehr die Kundenakquise; es ist die
+            Serviceerbringung. Qualifizierte Fachkräfte sind nicht zu finden,
             aber die Nachfrage steigt."
           </blockquote>
           <p className="mt-4 text-sm font-semibold text-gray-900">
-            — Typisches Szenario in deutschen Steuerkanzleien 2026
+            — Typisches Szenario in Dienstleistungsunternehmen 2026
           </p>
         </div>
       </div>

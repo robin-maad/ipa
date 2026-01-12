@@ -17,8 +17,8 @@ export default function Footer() {
               <span className="text-xl font-bold">IPA</span>
             </div>
             <p className="mb-4 max-w-md text-sm text-gray-300">
-              Die erste KI Workforce für deutsche
-              Steuerkanzleien. 100% GDPR-konform. Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.
+              Die erste KI Workforce für professionelle
+              Dienstleister. 100% GDPR-konform dank lokaler Infrastruktur durch ein erfahrenes Team.
             </p>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2">

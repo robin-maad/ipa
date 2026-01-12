@@ -38,7 +38,7 @@ export default function ArchitectureDiagram() {
               <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-teal-100 to-teal-200 shadow-md">
                 <Cog className="h-10 w-10 text-teal-700" />
               </div>
-              <h3 className="mt-3 font-semibold text-navy-900">n8n Workflow</h3>
+              <h3 className="mt-3 font-semibold text-navy-900">Workflow</h3>
               <p className="text-center text-sm text-gray-600">
                 Orchestration
               </p>
@@ -57,17 +57,17 @@ export default function ArchitectureDiagram() {
               <ArrowRight className="mt-3 h-6 w-6 rotate-90 text-gray-400" />
             </div>
 
-            {/* Step 4 - Firewall */}
+            {/* Step 4 - Quality Gate */}
             <div className="flex flex-col items-center rounded-xl border-2 border-red-500 bg-red-50 p-4">
               <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-red-100 to-red-200 shadow-md">
                 <UserCheck className="h-10 w-10 text-red-700" />
               </div>
               <h3 className="mt-3 font-semibold text-red-800">Human Approval</h3>
               <p className="text-center text-sm text-red-700">
-                The Firewall
+                Quality Gate
               </p>
               <p className="mt-2 text-center text-xs font-medium text-red-600">
-                Nichts wird ohne Ihre Freigabe an DATEV übertragen
+                Nichts wird ohne Ihre Freigabe übertragen
               </p>
               <ArrowRight className="mt-3 h-6 w-6 rotate-90 text-gray-400" />
             </div>
@@ -77,7 +77,7 @@ export default function ArchitectureDiagram() {
               <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-green-100 to-green-200 shadow-md">
                 <Database className="h-10 w-10 text-green-700" />
               </div>
-              <h3 className="mt-3 font-semibold text-navy-900">DATEV System</h3>
+              <h3 className="mt-3 font-semibold text-navy-900">System</h3>
               <p className="text-center text-sm text-gray-600">
                 Integration
               </p>
@@ -91,7 +91,7 @@ export default function ArchitectureDiagram() {
               </div>
               <h3 className="mt-3 font-semibold text-navy-900">Output</h3>
               <p className="text-center text-sm text-gray-600">
-                Bereit für Beratung
+                Bereit
               </p>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function ArchitectureDiagram() {
               <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-gradient-to-br from-teal-100 to-teal-200 shadow-lg">
                 <Cog className="h-12 w-12 text-teal-700" />
               </div>
-              <h3 className="mt-4 font-semibold text-navy-900">n8n Workflow</h3>
+              <h3 className="mt-4 font-semibold text-navy-900">Workflow</h3>
               <p className="text-sm text-gray-600">Orchestration</p>
             </div>
 
@@ -131,7 +131,7 @@ export default function ArchitectureDiagram() {
 
             <ArrowRight className="h-8 w-8 text-gray-400" />
 
-            {/* Step 4 - Firewall */}
+            {/* Step 4 - Quality Gate */}
             <div className="flex flex-col items-center rounded-xl border-2 border-red-500 bg-red-50 p-4">
               <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-gradient-to-br from-red-100 to-red-200 shadow-lg">
                 <UserCheck className="h-12 w-12 text-red-700" />
@@ -139,7 +139,7 @@ export default function ArchitectureDiagram() {
               <h3 className="mt-4 font-semibold text-red-800">
                 Human Approval
               </h3>
-              <p className="text-sm font-medium text-red-600">The Firewall</p>
+              <p className="text-sm font-medium text-red-600">Quality Gate</p>
             </div>
 
             <ArrowRight className="h-8 w-8 text-gray-400" />
@@ -149,7 +149,7 @@ export default function ArchitectureDiagram() {
               <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-gradient-to-br from-green-100 to-green-200 shadow-lg">
                 <Database className="h-12 w-12 text-green-700" />
               </div>
-              <h3 className="mt-4 font-semibold text-navy-900">DATEV</h3>
+              <h3 className="mt-4 font-semibold text-navy-900">System</h3>
               <p className="text-sm text-gray-600">Integration</p>
             </div>
 
@@ -172,10 +172,10 @@ export default function ArchitectureDiagram() {
             Der entscheidende Unterschied
           </h3>
           <p className="text-gray-700">
-            IPA ersetzt nicht Ihre Berater – es befreit sie von repetitiven
-            Aufgaben. Mit der <strong>Human-in-the-Loop</strong> Firewall
-            behalten Sie die volle Kontrolle: Nichts wird ohne Ihre explizite
-            Freigabe an DATEV übertragen.
+            IPA ersetzt nicht Ihre Experten – es befreit sie von repetitiven
+            Aufgaben. Mit der <strong>Human-in-the-Loop</strong> Kontrolle
+            behalten Sie die volle Übersicht: Nichts wird ohne Ihre explizite
+            Freigabe übertragen.
           </p>
         </div>
       </div>

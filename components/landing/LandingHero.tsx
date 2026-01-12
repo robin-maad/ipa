@@ -30,9 +30,9 @@ export default function LandingHero() {
           <div className="text-center lg:text-left">
             {/* Headline */}
             <h1 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-              Weniger manuelle Arbeit in der Kanzlei,{' '}
+              Weniger manuelle Arbeit im Unternehmen,{' '}
               <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
-                mehr Zeit für Mandanten
+                mehr Zeit für Kunden
               </span>
             </h1>
 
@@ -50,8 +50,8 @@ export default function LandingHero() {
                   <Check className="h-4 w-4 text-teal-400" />
                 </div>
                 <span className="text-sm text-gray-200 sm:text-base">
-                  Standardisierte Outputs für Mandanten und Banken (z. B.
-                  Liquiditätsübersichten)
+                  Standardisierte Outputs für Kunden und Partner (z. B.
+                  Berichte und Übersichten)
                 </span>
               </div>
               <div className="flex items-start gap-3">

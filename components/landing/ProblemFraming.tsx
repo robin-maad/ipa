@@ -4,21 +4,21 @@ export default function ProblemFraming() {
   const problems = [
     {
       icon: Clock,
-      title: 'Spitzenlasten bei Fristen',
+      title: 'Spitzenlasten bei Deadlines',
       description:
-        'Monats- und Jahresabschlüsse binden Ihr Senior-Team in manueller Datenaufbereitung.',
+        'Regelmäßige Berichte und Auswertungen binden Ihr Senior-Team in manueller Datenaufbereitung.',
     },
     {
       icon: FileX,
       title: 'Unstrukturierte Unterlagen',
       description:
-        'Mandanten schicken Dokumente per E-Mail, WhatsApp oder Post – ohne System.',
+        'Kunden schicken Dokumente per E-Mail, WhatsApp oder Post – ohne System.',
     },
     {
       icon: TrendingDown,
       title: 'Wiederkehrende Reports kosten Zeit',
       description:
-        'Liquiditätsplanung, BWA-Erstellung und Standardreports binden wertvolle Kapazität.',
+        'Regelmäßige Analysen, Berichte und Standardreports binden wertvolle Kapazität.',
     },
     {
       icon: AlertCircle,
@@ -36,7 +36,7 @@ export default function ProblemFraming() {
             Kennen Sie das auch?
           </h2>
           <p className="text-base text-gray-600 sm:text-lg">
-            Typische Herausforderungen in Steuerkanzleien
+            Typische Herausforderungen in Dienstleistungsunternehmen
           </p>
         </div>
 

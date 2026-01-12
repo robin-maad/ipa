@@ -5,7 +5,7 @@ export default function HowItWorks() {
     {
       icon: Upload,
       number: '1',
-      title: 'Mandantendaten einsammeln',
+      title: 'Kundendaten einsammeln',
       description:
         'Unterlagen kommen strukturiert über Portal oder E-Mail rein – automatisch kategorisiert.',
     },
@@ -21,7 +21,7 @@ export default function HowItWorks() {
       number: '3',
       title: 'Outputs: Reports, Dokumente, Exports',
       description:
-        'Fertige Liquiditätsübersichten, BWAs, Bank-Reports und DATEV-Exporte – direkt nutzbar.',
+        'Fertige Berichte, Analysen und System-Exporte – direkt nutzbar.',
     },
   ];
 

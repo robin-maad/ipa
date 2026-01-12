@@ -15,7 +15,7 @@ export default function SafetyShield() {
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-300">
             Drei Säulen garantieren 100% GDPR-Konformität und
-            Mandantenvertraulichkeit
+            Datenvertraulichkeit
           </p>
         </div>
 
@@ -33,16 +33,10 @@ export default function SafetyShield() {
             </CardHeader>
             <CardContent>
               <p className="mb-4 text-gray-300">
-                Die KI läuft vollständig auf Ihrer eigenen Hardware. Mandantendaten
+                Die KI läuft vollständig auf Ihrer eigenen Infrastruktur. Ihre Daten
                 verlassen niemals Ihr Netzwerk.
               </p>
               <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
-                  <span className="text-sm text-gray-300">
-                    On-Premise Installation möglich
-                  </span>
-                </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <span className="text-sm text-gray-300">
@@ -59,32 +53,32 @@ export default function SafetyShield() {
             </CardContent>
           </Card>
 
-          {/* Pillar 2 - DATEV Native */}
+          {/* Pillar 2 - Native Integrations */}
           <Card className="border-0 bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10">
             <CardHeader>
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
                 <Shield className="h-8 w-8 text-white" />
               </div>
               <CardTitle className="text-xl text-white">
-                DATEV Native
+                Native Integrations
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="mb-4 text-gray-300">
-                Vorkonfiguriert für deutsche Steuer-Workflows. Nahtlose
+                Vorkonfiguriert für führende Geschäftssysteme. Nahtlose
                 Integration in Ihre bestehende Infrastruktur.
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <span className="text-sm text-gray-300">
-                    DATEV-kompatibel
+                    CRM/ERP-kompatibel
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-400" />
                   <span className="text-sm text-gray-300">
-                    Deutsche Steuerlogik
+                    Deutsche Datenschutz-Standards
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -145,7 +139,7 @@ export default function SafetyShield() {
           </div>
           <h3 className="mb-2 text-2xl font-bold">Unsere Garantie</h3>
           <p className="mx-auto max-w-2xl text-lg text-gray-200">
-            100% GDPR-Konform. 100% Mandantenvertraulichkeit. 100%
+            100% GDPR-Konform. 100% Datenvertraulichkeit. 100%
             Berufshaftung gesichert.
           </p>
         </div>

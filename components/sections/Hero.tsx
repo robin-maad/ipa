@@ -34,14 +34,14 @@ export default function Hero() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-white lg:text-5xl xl:text-6xl">
               Die erste KI Workforce für{' '}
               <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
-                Steuerkanzleien
+                Ihr Unternehmen
               </span>
             </h1>
 
             {/* Subheadline */}
             <p className="mb-8 text-lg text-gray-300 lg:text-xl">
-              Automatisieren Sie bis zu 40% repetitiver Aufgaben. Ohne "Black
-              Box"-Risiko. Mit lokaler KI-Intelligenz direkt in Ihrer Kanzlei.
+              Automatisieren Sie bis zu 40% repetitiver Aufgaben ohne Black
+              Box-Risiko. Mit lokaler KI-Intelligenz direkt in Ihrer Infrastruktur.
             </p>
 
             {/* Trust Points */}
@@ -59,7 +59,7 @@ export default function Hero() {
                   <Check className="h-4 w-4 text-teal-400" />
                 </div>
                 <span className="text-gray-200">
-                  DATEV Native – Pre-Configured for German Tax Workflows
+                  Native Integration – Works with Your Existing Systems
                 </span>
               </div>
               <div className="flex items-center gap-3">
