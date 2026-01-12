@@ -74,9 +74,9 @@ export function TwoStepForm({ calculatorData, className = '' }: TwoStepFormProps
   }, []);
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative w-full ${className}`}>
       {/* Progress Indicator */}
-      <div className="mb-6">
+      <div className="mb-6 w-full">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-white">Schritt {currentStep} von 2</span>
           <span className="text-xs text-navy-400">{currentStep === 1 ? '~5 Sek' : '~30 Sek'}</span>

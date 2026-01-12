@@ -30,20 +30,20 @@ export default function ROIHero() {
       {/* Top Bar */}
       <div className="relative border-b border-navy-700 bg-navy-900/50 backdrop-blur-sm">
         <div className="container mx-auto max-w-7xl px-4 py-3">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
-            <span className="text-white font-medium">ROI-Rechner</span>
-            <div className="flex items-center gap-2 text-navy-300">
-              <Shield className="h-4 w-4 text-teal-500" />
-              <span>100% DSGVO-konform, juristisch geprüft</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-sm">
+            <span className="text-white font-medium whitespace-nowrap">ROI-Rechner</span>
+            <div className="flex items-center gap-2 text-navy-300 text-center sm:text-left">
+              <Shield className="h-4 w-4 text-teal-500 flex-shrink-0" />
+              <span className="text-xs sm:text-sm">100% DSGVO-konform, juristisch geprüft</span>
             </div>
           </div>
         </div>
       </div>
 
       <div className="container relative mx-auto max-w-7xl px-4 py-12 lg:py-20">
-        <div className="grid gap-8 lg:grid-cols-[60%_40%] lg:gap-12 items-center">
+        <div className="grid gap-8 lg:grid-cols-[1fr_minmax(400px,480px)] lg:gap-12 items-start">
           {/* Left Column - Hero Copy */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center lg:pt-8">
             {/* H1 Headline */}
             <h1 className="mb-6 text-4xl font-bold leading-tight text-white lg:text-5xl xl:text-6xl">
               <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
@@ -105,10 +105,10 @@ export default function ROIHero() {
           </div>
 
           {/* Right Column - Form Card */}
-          <div className="lg:sticky lg:top-8">
+          <div className="w-full lg:sticky lg:top-8">
             <div
               id="hero-form"
-              className="rounded-2xl border border-navy-700 bg-navy-800/50 backdrop-blur-sm p-6 md:p-8 shadow-2xl transition-all"
+              className="w-full max-w-[480px] mx-auto lg:mx-0 rounded-2xl border border-navy-700 bg-navy-800/50 backdrop-blur-sm p-6 md:p-8 shadow-2xl transition-all"
             >
               <TwoStepForm calculatorData={calculatorData} />
             </div>

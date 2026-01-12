@@ -126,6 +126,10 @@ export async function POST(request: NextRequest) {
     const pdfUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ipa-website.vercel.app'}/roi-rechner.pdf`;
 
     await sendTransactionalEmail({
+      sender: {
+        email: process.env.BREVO_SENDER_EMAIL || 'noreply@ipa.smith-und-partners.de',
+        name: process.env.BREVO_SENDER_NAME || 'IPA Team',
+      },
       to: [{ email, name: `${firstName} ${lastName}` }],
       subject: 'Ihr ROI-Rechner für KI-gestützte Prozessautomatisierung',
       htmlContent: emailHTML,

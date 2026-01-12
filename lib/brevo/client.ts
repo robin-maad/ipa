@@ -42,6 +42,7 @@ export interface BrevoContact {
 }
 
 export interface BrevoEmail {
+  sender?: { email: string; name?: string };
   to: Array<{ email: string; name?: string }>;
   templateId?: number;
   subject?: string;
