@@ -73,11 +73,11 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex w-full flex-col gap-4 sm:flex-row sm:flex-wrap">
               <TrackableButton
                 size="xl"
                 onClick={scrollToContact}
-                className="group"
+                className="group w-full shrink-0 sm:w-auto sm:flex-1 sm:max-w-md"
                 trackEvent="cta_click"
                 trackData={{
                   cta_text: 'Kostenlose Prozessanalyse vereinbaren',
@@ -85,8 +85,8 @@ export default function Hero() {
                   cta_type: 'primary',
                 }}
               >
-                Kostenlose Prozessanalyse vereinbaren
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <span className="truncate">Kostenlose Prozessanalyse vereinbaren</span>
+                <ArrowRight className="ml-2 h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" />
               </TrackableButton>
               <TrackableButton
                 size="xl"
@@ -97,7 +97,7 @@ export default function Hero() {
                     element.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="border-gray-400 text-gray-300 hover:bg-white/10"
+                className="w-full shrink-0 border-gray-400 text-gray-300 hover:bg-white/10 sm:w-auto"
                 trackEvent="cta_click"
                 trackData={{
                   cta_text: 'Mehr erfahren',

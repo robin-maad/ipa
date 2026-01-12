@@ -43,13 +43,13 @@ export default function FinalCTA() {
         </p>
 
         {/* CTA Button */}
-        <div className="mb-8">
+        <div className="mb-8 flex justify-center">
           <Button
             size="lg"
             onClick={handleScrollToTop}
-            className="px-8 py-6 text-lg font-semibold"
+            className="w-full max-w-md px-8 py-6 text-lg font-semibold sm:w-auto"
           >
-            Jetzt kostenlos herunterladen
+            <span className="truncate">Jetzt kostenlos herunterladen</span>
           </Button>
         </div>
 
