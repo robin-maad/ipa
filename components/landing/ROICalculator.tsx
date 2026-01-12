@@ -7,14 +7,15 @@ import {
   calculateROI,
   DEFAULT_INPUTS,
   INPUT_CONSTRAINTS,
-  formatEuro,
-  formatMonths,
+  formatDecimalHours,
+  formatEvenings,
   formatHours,
   formatPercentage,
   type ROICalculatorInputs,
   type ROICalculatorOutputs,
 } from '@/lib/calculator/roi';
 import { createDebouncedCalculatorTracking, trackCalculatorCTAClick } from '@/lib/analytics/roi-events';
+import { Calendar, CalendarDays, Moon, User, Users, TrendingUp, CheckCircle } from 'lucide-react';
 
 interface ROICalculatorProps {
   onEmailRequest?: () => void; // Callback to scroll to form
@@ -49,6 +50,8 @@ export function ROICalculator({ onEmailRequest, className = '' }: ROICalculatorP
     trackCalculatorCTAClick();
     onEmailRequest?.();
   };
+
+  const teamSharePercent = Math.round((1 - inputs.ownerShare) * 100);
 
   return (
     <section
@@ -109,17 +112,6 @@ export function ROICalculator({ onEmailRequest, className = '' }: ROICalculatorP
               formatValue={(v) => `${v} Min`}
               helpText="Netto-Zeitersparnis pro Paket inkl. Schreiben, nach Review"
             />
-
-            {/* Hourly Rate Slider */}
-            <SliderInput
-              label="Interner Stundensatz (€/h)"
-              value={inputs.hourlyRate}
-              min={INPUT_CONSTRAINTS.hourlyRate.min}
-              max={INPUT_CONSTRAINTS.hourlyRate.max}
-              step={INPUT_CONSTRAINTS.hourlyRate.step}
-              onChange={(value) => handleInputChange('hourlyRate', value)}
-              formatValue={(v) => `${v}€/h`}
-            />
           </div>
 
           {/* Advanced Toggle */}
@@ -147,64 +139,98 @@ export function ROICalculator({ onEmailRequest, className = '' }: ROICalculatorP
                   helpText="Wie viel Prozent der Mandanten nutzen das System aktiv?"
                 />
 
-                {/* Annual Cost Slider */}
+                {/* Owner Share Slider */}
                 <SliderInput
-                  label="Kosten pro Jahr (€)"
-                  value={inputs.annualCost}
-                  min={INPUT_CONSTRAINTS.annualCost.min}
-                  max={INPUT_CONSTRAINTS.annualCost.max}
-                  step={INPUT_CONSTRAINTS.annualCost.step}
-                  onChange={(value) => handleInputChange('annualCost', value)}
-                  formatValue={(v) => formatEuro(v)}
-                  helpText="Geschätzte jährliche Plattformkosten"
+                  label="Owner-Anteil an diesem Workflow (%)"
+                  value={inputs.ownerShare * 100}
+                  min={INPUT_CONSTRAINTS.ownerShare.min * 100}
+                  max={INPUT_CONSTRAINTS.ownerShare.max * 100}
+                  step={INPUT_CONSTRAINTS.ownerShare.step * 100}
+                  onChange={(value) => handleInputChange('ownerShare', [value[0] / 100])}
+                  formatValue={(v) => `${v}%`}
+                  helpText={`Team-Anteil: ${teamSharePercent}% (automatisch berechnet)`}
                 />
               </div>
             )}
           </div>
 
-          {/* Outputs Grid */}
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-live="polite" aria-atomic="true">
+          {/* Outputs Grid - 3×2 Layout */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4" aria-live="polite" aria-atomic="true">
+            {/* Top Row: Primary Time Outputs */}
             <OutputCard
-              label="Ersparnis pro Jahr"
-              value={formatEuro(outputs.savingsAnnual)}
-              icon="💰"
+              label="Stunden zurück"
+              sublabel="Gesamt pro Monat"
+              value={formatDecimalHours(outputs.totalHoursMonthly)}
+              icon={<Calendar className="h-6 w-6" />}
             />
             <OutputCard
-              label="Ersparnis pro Monat"
-              value={formatEuro(outputs.savingsMonthly)}
-              icon="📅"
+              label="Stunden zurück"
+              sublabel="Gesamt pro Woche"
+              value={formatDecimalHours(outputs.totalHoursWeekly)}
+              icon={<CalendarDays className="h-6 w-6" />}
             />
-            {inputs.annualCost > 0 && (
-              <OutputCard
-                label="Break-even"
-                value={formatMonths(outputs.breakEvenMonths)}
-                icon="⏱️"
-              />
-            )}
             <OutputCard
-              label="Kapazität zurückgewonnen"
-              value={formatHours(outputs.capacityHoursAnnual)}
-              icon="⚡"
+              label="Abende zurück"
+              sublabel="Pro Monat (2h-Annahme)"
+              value={formatEvenings(outputs.eveningsSavedMonthly)}
+              icon={<Moon className="h-6 w-6" />}
+              helpText="Annahme: 2 Stunden pro Abend"
             />
+
+            {/* Bottom Row: Owner/Team Breakdown + Total */}
+            <OutputCard
+              label="Owner-Zeit zurück"
+              sublabel={`Pro Monat (${Math.round(inputs.ownerShare * 100)}% Anteil)`}
+              value={formatDecimalHours(outputs.ownerHoursMonthly)}
+              icon={<User className="h-6 w-6" />}
+            />
+            <OutputCard
+              label="Team-Zeit zurück"
+              sublabel={`Pro Monat (${teamSharePercent}% Anteil)`}
+              value={formatDecimalHours(outputs.teamHoursMonthly)}
+              icon={<Users className="h-6 w-6" />}
+            />
+            <OutputCard
+              label="Kapazität pro Jahr"
+              sublabel="Gesamt freigesetzt"
+              value={formatHours(outputs.totalHoursAnnual)}
+              icon={<TrendingUp className="h-6 w-6" />}
+              helpText="Freigesetzte Kapazität für neue Mandate"
+            />
+          </div>
+
+          {/* Copy Hooks */}
+          <div className="mt-8 space-y-3 text-sm text-navy-300">
+            <p className="flex items-start gap-2">
+              <CheckCircle className="h-5 w-5 text-teal-500 flex-shrink-0 mt-0.5" />
+              <span>Das ist Zeit, die Sie zurückbekommen, nicht nur Kosten, die Sie sparen.</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <CheckCircle className="h-5 w-5 text-teal-500 flex-shrink-0 mt-0.5" />
+              <span>Mehr Kapazität für Mandantengespräche, Qualitätssicherung und proaktive Beratung.</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <CheckCircle className="h-5 w-5 text-teal-500 flex-shrink-0 mt-0.5" />
+              <span>Weniger Rückfragen, weniger Nacharbeit, weniger Stressspitzen.</span>
+            </p>
           </div>
 
           {/* Formula Explanation */}
           <div className="mt-8 p-4 bg-navy-900/50 rounded-lg border border-navy-600">
             <h3 className="text-sm font-semibold text-white mb-2">Formel (defensibel)</h3>
             <div className="text-xs text-navy-300 space-y-1 font-mono">
-              <p>Ersparnis/Jahr = N × f × (m/60) × C × a</p>
-              <p>Kapazität (Std/Jahr) = N × f × (m/60) × a</p>
-              <p>Break-even (Monate) = K / (Ersparnis/12)</p>
+              <p>Zeit zurück/Jahr = N × f × (m/60) × a</p>
+              <p>Owner-Zeit = Gesamt × Owner-Anteil</p>
+              <p>Team-Zeit = Gesamt × (100% - Owner-Anteil)</p>
             </div>
             <p className="text-xs text-navy-400 mt-2">
-              N = Mandanten, f = Pakete/Jahr, m = Minuten, C = Stundensatz, a = Adoption, K =
-              Kosten
+              N = Mandanten, f = Pakete/Jahr, m = Minuten, a = Adoption
             </p>
           </div>
 
           {/* Pre-filled Scenario */}
           <p className="mt-4 text-xs text-center text-navy-400">
-            Beispiel (Default): 50 Mandanten, 2 Pakete/Jahr, 60 Min Ersparnis, 120€/h, 80% Adoption
+            Beispiel (Default): 50 Mandanten, 2 Pakete/Jahr, 60 Min Ersparnis, 80% Adoption, 30% Owner-Anteil
           </p>
 
           {/* CTA Button */}
@@ -283,16 +309,20 @@ function SliderInput({
 
 interface OutputCardProps {
   label: string;
+  sublabel: string;
   value: string;
-  icon: string;
+  icon: React.ReactNode;
+  helpText?: string;
 }
 
-function OutputCard({ label, value, icon }: OutputCardProps) {
+function OutputCard({ label, sublabel, value, icon, helpText }: OutputCardProps) {
   return (
     <div className="bg-navy-900/70 border border-navy-600 rounded-xl p-5 text-center">
-      <div className="text-2xl mb-2">{icon}</div>
-      <div className="text-sm text-navy-400 mb-1">{label}</div>
+      <div className="flex justify-center text-teal-500 mb-2">{icon}</div>
+      <div className="text-sm font-medium text-white mb-0.5">{label}</div>
+      <div className="text-xs text-navy-400 mb-2">{sublabel}</div>
       <div className="text-2xl md:text-3xl font-bold text-white">{value}</div>
+      {helpText && <p className="text-xs text-navy-500 mt-2">{helpText}</p>}
     </div>
   );
 }

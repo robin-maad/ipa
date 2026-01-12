@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { INPUT_CONSTRAINTS } from '../calculator/roi';
 
 /**
- * Zod Validation Schemas for ROI Calculator Landing Page
+ * Zod Validation Schemas for ROI Calculator Landing Page (Time-Based)
  */
 
 // ============================================================================
@@ -53,7 +53,7 @@ export const step2Schema = z.object({
 export type Step2FormData = z.infer<typeof step2Schema>;
 
 // ============================================================================
-// Calculator Inputs Schema
+// Calculator Inputs Schema (Time-Based)
 // ============================================================================
 
 export const calculatorInputsSchema = z.object({
@@ -75,25 +75,44 @@ export const calculatorInputsSchema = z.object({
     .min(INPUT_CONSTRAINTS.minutesSaved.min, `Mindestens ${INPUT_CONSTRAINTS.minutesSaved.min} Minuten`)
     .max(INPUT_CONSTRAINTS.minutesSaved.max, `Maximal ${INPUT_CONSTRAINTS.minutesSaved.max} Minuten`),
 
-  hourlyRate: z
-    .number()
-    .int('Stundensatz muss eine ganze Zahl sein')
-    .min(INPUT_CONSTRAINTS.hourlyRate.min, `Mindestens ${INPUT_CONSTRAINTS.hourlyRate.min}€/h`)
-    .max(INPUT_CONSTRAINTS.hourlyRate.max, `Maximal ${INPUT_CONSTRAINTS.hourlyRate.max}€/h`),
-
   adoption: z
     .number()
     .min(INPUT_CONSTRAINTS.adoption.min, `Mindestens ${INPUT_CONSTRAINTS.adoption.min * 100}%`)
     .max(INPUT_CONSTRAINTS.adoption.max, `Maximal ${INPUT_CONSTRAINTS.adoption.max * 100}%`),
 
-  annualCost: z
+  ownerShare: z
     .number()
-    .int('Kosten pro Jahr muss eine ganze Zahl sein')
-    .min(INPUT_CONSTRAINTS.annualCost.min, `Mindestens ${INPUT_CONSTRAINTS.annualCost.min}€`)
-    .max(INPUT_CONSTRAINTS.annualCost.max, `Maximal ${INPUT_CONSTRAINTS.annualCost.max}€`),
+    .min(INPUT_CONSTRAINTS.ownerShare.min, `Mindestens ${INPUT_CONSTRAINTS.ownerShare.min * 100}%`)
+    .max(INPUT_CONSTRAINTS.ownerShare.max, `Maximal ${INPUT_CONSTRAINTS.ownerShare.max * 100}%`),
 });
 
 export type CalculatorInputsFormData = z.infer<typeof calculatorInputsSchema>;
+
+// ============================================================================
+// Calculator Outputs Schema (Time-Based)
+// ============================================================================
+
+export const calculatorOutputsSchema = z.object({
+  totalHoursAnnual: z.number(),
+  totalHoursMonthly: z.number(),
+  totalHoursWeekly: z.number(),
+  ownerHoursMonthly: z.number(),
+  teamHoursMonthly: z.number(),
+  eveningsSavedMonthly: z.number(),
+});
+
+export type CalculatorOutputsData = z.infer<typeof calculatorOutputsSchema>;
+
+// ============================================================================
+// Calculator Data Schema (Inputs + Outputs)
+// ============================================================================
+
+export const calculatorDataSchema = z.object({
+  inputs: calculatorInputsSchema,
+  outputs: calculatorOutputsSchema,
+}).optional();
+
+export type CalculatorData = z.infer<typeof calculatorDataSchema>;
 
 // ============================================================================
 // Combined Form Submission Schema (for API)
@@ -111,20 +130,7 @@ export const fullSubmissionSchema = z.object({
   company: z.string().min(1),
 
   // Calculator data (optional - only if user engaged with calculator)
-  calculatorData: z
-    .object({
-      clients: z.number(),
-      packagesPerYear: z.number(),
-      minutesSaved: z.number(),
-      hourlyRate: z.number(),
-      adoption: z.number(),
-      annualCost: z.number(),
-      savingsAnnual: z.number(),
-      savingsMonthly: z.number(),
-      breakEvenMonths: z.number().nullable(),
-      capacityHoursAnnual: z.number(),
-    })
-    .optional(),
+  calculatorData: calculatorDataSchema,
 
   // Security
   turnstileToken: z.string().min(1),
@@ -157,21 +163,8 @@ export const completeLeadSchema = z.object({
   lastName: z.string().min(1),
   company: z.string().min(1),
 
-  // Calculator data
-  calculatorData: z
-    .object({
-      clients: z.number(),
-      packagesPerYear: z.number(),
-      minutesSaved: z.number(),
-      hourlyRate: z.number(),
-      adoption: z.number(),
-      annualCost: z.number(),
-      savingsAnnual: z.number(),
-      savingsMonthly: z.number(),
-      breakEvenMonths: z.number().nullable(),
-      capacityHoursAnnual: z.number(),
-    })
-    .optional(),
+  // Calculator data (time-based)
+  calculatorData: calculatorDataSchema,
 
   // Security
   turnstileToken: z.string().min(1),

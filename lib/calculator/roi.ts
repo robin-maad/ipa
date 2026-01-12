@@ -1,35 +1,35 @@
 /**
- * ROI Calculator Logic for Tax Advisory Automation
- * Calculates savings, break-even, and capacity for "Steuerlast-Prognose plus Mandantenbericht" package
+ * ROI Calculator Logic for Tax Advisory Automation (Time-Based)
+ * Calculates time savings for "Steuerlast-Prognose plus Mandantenbericht" package
  */
 
 export interface ROICalculatorInputs {
   clients: number;          // N: Number of clients (10-500)
   packagesPerYear: number;  // f: Packages per client per year (1-12)
   minutesSaved: number;     // m: Time saved per package in minutes (10-180)
-  hourlyRate: number;       // C: Internal hourly rate in €/h (60-250)
   adoption: number;         // a: Adoption rate as decimal 0.5-1.0 (50%-100%)
-  annualCost: number;       // K: Annual platform cost in € (0-15000)
+  ownerShare: number;       // Owner share as decimal 0.0-1.0 (0%-100%), default 0.3
 }
 
 export interface ROICalculatorOutputs {
-  savingsAnnual: number;       // Annual savings in €
-  savingsMonthly: number;      // Monthly savings in €
-  breakEvenMonths: number | null; // Break-even in months (null if not calculable)
-  capacityHoursAnnual: number; // Capacity recovered in hours per year
+  totalHoursAnnual: number;      // Total hours saved per year
+  totalHoursMonthly: number;     // Total hours saved per month
+  totalHoursWeekly: number;      // Total hours saved per week
+  ownerHoursMonthly: number;     // Owner hours saved per month
+  teamHoursMonthly: number;      // Team hours saved per month
+  eveningsSavedMonthly: number;  // Evenings saved per month (÷2h assumption)
 }
 
 /**
- * Default calculator scenario as specified
- * Headline claim: "10.000€+ schon mit 50 Mandanten" → 9.600€ ≈ 10k
+ * Default calculator scenario
+ * Headline claim: "80 Stunden im Jahr zurück mit 50 Mandanten"
  */
 export const DEFAULT_INPUTS: ROICalculatorInputs = {
   clients: 50,
   packagesPerYear: 2,
   minutesSaved: 60,
-  hourlyRate: 120,
   adoption: 0.8,
-  annualCost: 1000,
+  ownerShare: 0.3,
 };
 
 /**
@@ -39,72 +39,71 @@ export const INPUT_CONSTRAINTS = {
   clients: { min: 10, max: 500, step: 5 },
   packagesPerYear: { min: 1, max: 12, step: 1 },
   minutesSaved: { min: 10, max: 180, step: 5 },
-  hourlyRate: { min: 60, max: 250, step: 5 },
   adoption: { min: 0.5, max: 1.0, step: 0.05 },
-  annualCost: { min: 0, max: 15000, step: 100 },
+  ownerShare: { min: 0.0, max: 1.0, step: 0.05 },
 };
 
 /**
- * Calculate ROI based on inputs
+ * Calculate time-based ROI outcomes
  *
  * Formula:
- * - Hours saved per package: h = m / 60
- * - Annual savings: Savings = N × f × h × C × a
- * - Monthly savings: savingsAnnual / 12
- * - Break-even: K / monthly_savings (if monthly_savings > 0)
- * - Capacity: N × f × h × a
+ * - Total hours/year: N × f × (m/60) × a
+ * - Total hours/month: Total hours/year / 12
+ * - Total hours/week: Total hours/year / 52
+ * - Owner hours: Total × owner_share
+ * - Team hours: Total × (1 - owner_share)
+ * - Evenings: Total monthly hours / 2
  */
 export function calculateROI(inputs: ROICalculatorInputs): ROICalculatorOutputs {
-  const { clients, packagesPerYear, minutesSaved, hourlyRate, adoption, annualCost } = inputs;
+  const { clients, packagesPerYear, minutesSaved, adoption, ownerShare } = inputs;
 
   // Convert minutes to hours
   const hoursSavedPerPackage = minutesSaved / 60;
 
-  // Calculate annual savings
-  // Savings = N × f × h × C × a
-  const savingsAnnual = clients * packagesPerYear * hoursSavedPerPackage * hourlyRate * adoption;
+  // Calculate total hours saved
+  const totalHoursAnnual = clients * packagesPerYear * hoursSavedPerPackage * adoption;
+  const totalHoursMonthly = totalHoursAnnual / 12;
+  const totalHoursWeekly = totalHoursAnnual / 52;
 
-  // Calculate monthly savings
-  const savingsMonthly = savingsAnnual / 12;
+  // Calculate owner vs team breakdown
+  const ownerHoursAnnual = totalHoursAnnual * ownerShare;
+  const ownerHoursMonthly = ownerHoursAnnual / 12;
 
-  // Calculate break-even period
-  let breakEvenMonths: number | null = null;
-  if (annualCost > 0 && savingsMonthly > 0) {
-    breakEvenMonths = annualCost / savingsMonthly;
-  }
+  const teamShare = 1 - ownerShare;
+  const teamHoursAnnual = totalHoursAnnual * teamShare;
+  const teamHoursMonthly = teamHoursAnnual / 12;
 
-  // Calculate capacity recovered
-  const capacityHoursAnnual = clients * packagesPerYear * hoursSavedPerPackage * adoption;
+  // Calculate evenings saved (2h per evening assumption)
+  const eveningsSavedMonthly = totalHoursMonthly / 2;
 
   return {
-    savingsAnnual: Math.round(savingsAnnual),
-    savingsMonthly: Math.round(savingsMonthly),
-    breakEvenMonths: breakEvenMonths !== null ? Math.round(breakEvenMonths * 10) / 10 : null,
-    capacityHoursAnnual: Math.round(capacityHoursAnnual),
+    totalHoursAnnual: Math.round(totalHoursAnnual),
+    totalHoursMonthly: Math.round(totalHoursMonthly * 10) / 10, // 1 decimal
+    totalHoursWeekly: Math.round(totalHoursWeekly * 10) / 10,   // 1 decimal
+    ownerHoursMonthly: Math.round(ownerHoursMonthly * 10) / 10, // 1 decimal
+    teamHoursMonthly: Math.round(teamHoursMonthly * 10) / 10,   // 1 decimal
+    eveningsSavedMonthly: Math.round(eveningsSavedMonthly * 10) / 10, // 1 decimal
   };
 }
 
 /**
- * Format currency in German locale (e.g., "10.000 €")
+ * Format hours with 1 decimal in German locale (e.g., "6,7 Std")
  */
-export function formatEuro(value: number): string {
+export function formatDecimalHours(value: number): string {
   return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-    maximumFractionDigits: 0,
-  }).format(value);
+    maximumFractionDigits: 1,
+    minimumFractionDigits: 1,
+  }).format(value) + ' Std';
 }
 
 /**
- * Format months in German locale with 1 decimal (e.g., "2,5 Monate")
- * Returns "nicht berechenbar" for null values
+ * Format evenings with 1 decimal (e.g., "3,3 Abende")
  */
-export function formatMonths(value: number | null): string {
-  if (value === null) return 'nicht berechenbar';
-
+export function formatEvenings(value: number): string {
   return new Intl.NumberFormat('de-DE', {
     maximumFractionDigits: 1,
-  }).format(value) + ' Monate';
+    minimumFractionDigits: 1,
+  }).format(value) + ' Abende';
 }
 
 /**
@@ -153,13 +152,6 @@ export function validateInputs(inputs: Partial<ROICalculatorInputs>): {
     }
   }
 
-  if (inputs.hourlyRate !== undefined) {
-    const { min, max } = INPUT_CONSTRAINTS.hourlyRate;
-    if (inputs.hourlyRate < min || inputs.hourlyRate > max) {
-      errors.hourlyRate = `Stundensatz muss zwischen ${min}€ und ${max}€ liegen`;
-    }
-  }
-
   if (inputs.adoption !== undefined) {
     const { min, max } = INPUT_CONSTRAINTS.adoption;
     if (inputs.adoption < min || inputs.adoption > max) {
@@ -167,10 +159,10 @@ export function validateInputs(inputs: Partial<ROICalculatorInputs>): {
     }
   }
 
-  if (inputs.annualCost !== undefined) {
-    const { min, max } = INPUT_CONSTRAINTS.annualCost;
-    if (inputs.annualCost < min || inputs.annualCost > max) {
-      errors.annualCost = `Kosten pro Jahr müssen zwischen ${min}€ und ${max}€ liegen`;
+  if (inputs.ownerShare !== undefined) {
+    const { min, max } = INPUT_CONSTRAINTS.ownerShare;
+    if (inputs.ownerShare < min || inputs.ownerShare > max) {
+      errors.ownerShare = `Owner-Anteil muss zwischen ${formatPercentage(min)} und ${formatPercentage(max)} liegen`;
     }
   }
 
