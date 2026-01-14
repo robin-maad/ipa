@@ -51,7 +51,7 @@ export default function Hero() {
                   <Check className="h-4 w-4 text-teal-400" />
                 </div>
                 <span className="text-gray-200">
-                  100% Local Intelligence – Client Data Never Leaves Your Network
+                  100% lokale Intelligenz – Kundendaten verlassen nie Ihr Netzwerk
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export default function Hero() {
                   <Check className="h-4 w-4 text-teal-400" />
                 </div>
                 <span className="text-gray-200">
-                  Native Integration – Works with Your Existing Systems
+                  Native Integration – Funktioniert mit Ihren bestehenden Systemen
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -67,7 +67,7 @@ export default function Hero() {
                   <Check className="h-4 w-4 text-teal-400" />
                 </div>
                 <span className="text-gray-200">
-                  ROI &lt; 12 Monate – Fast Payback Period
+                  ROI &lt; 12 Monate – Schnelle Amortisation
                 </span>
               </div>
             </div>
@@ -116,19 +116,19 @@ export default function Hero() {
               {/* Stat Card 1 */}
               <div className="rounded-xl border border-gray-700 bg-white/5 p-6 backdrop-blur-sm">
                 <div className="mb-2 text-4xl font-bold text-teal-400">-60%</div>
-                <div className="text-sm text-gray-300">Manual Input Time</div>
+                <div className="text-sm text-gray-300">Manuelle Eingabezeit</div>
               </div>
 
               {/* Stat Card 2 */}
               <div className="rounded-xl border border-gray-700 bg-white/5 p-6 backdrop-blur-sm">
                 <div className="mb-2 text-4xl font-bold text-teal-400">+30%</div>
-                <div className="text-sm text-gray-300">Client Capacity</div>
+                <div className="text-sm text-gray-300">Kundenkapazität</div>
               </div>
 
               {/* Stat Card 3 */}
               <div className="rounded-xl border border-gray-700 bg-white/5 p-6 backdrop-blur-sm">
                 <div className="mb-2 text-4xl font-bold text-teal-400">-80%</div>
-                <div className="text-sm text-gray-300">Transfer Errors</div>
+                <div className="text-sm text-gray-300">Übertragungsfehler</div>
               </div>
 
               {/* Stat Card 4 */}

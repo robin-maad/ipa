@@ -16,19 +16,19 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://ipa.smith-und-partners.de'),
   title: {
-    default: 'IPA | Intelligente Prozessautomatisierung für Steuerkanzleien',
+    default: 'IPA | Intelligente Prozessautomatisierung für Ihr Unternehmen',
     template: '%s | IPA',
   },
   description:
-    '100% GDPR-konforme Automatisierung für Steuerkanzleien. Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht. Automatisieren Sie bis zu 40% repetitiver Aufgaben.',
+    '100% GDPR-konforme Automatisierung für kleine und mittlere Unternehmen. Juristisch geprüft durch ein führendes Team im Wirtschaftsrecht. Automatisieren Sie bis zu 40% repetitiver Aufgaben.',
   keywords: [
-    'Steuerkanzlei Automatisierung',
-    'DATEV Automatisierung',
-    'KI Steuerberatung',
     'Prozessautomatisierung',
-    'Tax Automation',
+    'KI Automatisierung',
+    'Business Automation',
+    'Workflow Automatisierung',
     'On-Premise KI',
     'Digital Workforce',
+    'Enterprise Automation',
   ],
   authors: [{ name: 'IPA', url: 'https://ipa.smith-und-partners.de' }],
   creator: 'House of MAAD',
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'de_DE',
     url: 'https://ipa.smith-und-partners.de',
-    title: 'IPA | Die erste KI Workforce',
+    title: 'IPA | Die erste KI Workforce für Ihr Unternehmen',
     description:
-      'GDPR-konforme Automatisierung für deutsche Steuerkanzleien. Bis zu 40% repetitive Aufgaben automatisieren.',
+      'GDPR-konforme Automatisierung für kleine und mittlere Unternehmen. Bis zu 40% repetitive Aufgaben automatisieren.',
     siteName: 'IPA',
     images: [
       {
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'IPA | Intelligente Prozessautomatisierung für Steuerkanzleien',
+    title: 'IPA | Intelligente Prozessautomatisierung für Ihr Unternehmen',
     description:
-      'GDPR-konforme Automatisierung für Steuerkanzleien. Bis zu 40% repetitive Aufgaben automatisieren.',
+      'GDPR-konforme Automatisierung für kleine und mittlere Unternehmen. Bis zu 40% repetitive Aufgaben automatisieren.',
     images: ['/og-image.png'],
   },
   robots: {

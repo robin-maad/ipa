@@ -7,13 +7,13 @@ export default function ArchitectureDiagram() {
         {/* Section Header */}
         <div className="mb-16 text-center">
           <div className="mb-4 inline-block rounded-full bg-teal-100 px-4 py-2 text-sm font-semibold text-teal-700">
-            Wie IPA funktioniert
+            So funktioniert intelligente Prozessautomatisierung
           </div>
           <h2 className="mb-4 text-3xl font-bold text-navy-900 lg:text-4xl">
-            Intelligente · Prozess · Automatisierung · Steuer
+            Intelligente Prozessautomatisierung
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Human-in-the-Loop Architektur für maximale Kontrolle und Compliance
+            Intelligente Prozessautomatisierung verbindet Prozessanalyse, Systeme und Daten, um wiederkehrende Abläufe zuverlässig zu automatisieren. Das Ergebnis sind weniger manuelle Schritte, weniger Fehler, mehr Transparenz und schnellere Durchlaufzeiten.
           </p>
         </div>
 

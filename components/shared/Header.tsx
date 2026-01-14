@@ -33,7 +33,7 @@ export default function Header() {
             onClick={() => scrollToSection('problem')}
             className="text-sm font-medium text-gray-700 transition-colors hover:text-teal-600"
           >
-            Problem
+            Start
           </button>
           <button
             onClick={() => scrollToSection('solution')}
@@ -45,7 +45,7 @@ export default function Header() {
             onClick={() => scrollToSection('workflows')}
             className="text-sm font-medium text-gray-700 transition-colors hover:text-teal-600"
           >
-            Workflows
+            Use Cases
           </button>
           <button
             onClick={() => scrollToSection('contact')}
@@ -61,7 +61,7 @@ export default function Header() {
             onClick={() => scrollToSection('contact')}
             size="default"
           >
-            Termin vereinbaren
+            Gespräch vereinbaren
           </Button>
         </div>
 
@@ -87,7 +87,7 @@ export default function Header() {
               onClick={() => scrollToSection('problem')}
               className="text-left text-base font-medium text-gray-700"
             >
-              Problem
+              Start
             </button>
             <button
               onClick={() => scrollToSection('solution')}
@@ -99,7 +99,7 @@ export default function Header() {
               onClick={() => scrollToSection('workflows')}
               className="text-left text-base font-medium text-gray-700"
             >
-              Workflows
+              Use Cases
             </button>
             <button
               onClick={() => scrollToSection('contact')}
@@ -111,7 +111,7 @@ export default function Header() {
               onClick={() => scrollToSection('contact')}
               className="mt-2"
             >
-              Termin vereinbaren
+              Gespräch vereinbaren
             </Button>
           </nav>
         </div>

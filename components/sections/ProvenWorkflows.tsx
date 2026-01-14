@@ -1,53 +1,101 @@
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, UserPlus, Calculator, ArrowRight } from 'lucide-react';
+import { Mail, FileText, CheckCircle, Calendar, FileSpreadsheet, Brain } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function ProvenWorkflows() {
   const workflows = [
     {
-      icon: FileText,
-      title: 'Dokumentenverarbeitung',
+      icon: Mail,
+      title: 'E-Mail-Triage & Routing',
       description:
-        'Automatisierte Verarbeitung von eingehenden Dokumenten',
+        'Klassifizieren, priorisieren, zustellen, Eskalationen automatisch auslösen',
       steps: [
-        'Dokumentensammlung',
-        'Extraktion relevanter Informationen',
-        'Plausibilitätsprüfung',
-        'Kategorisierung und Routing',
-        'Human Approval',
+        'E-Mails klassifizieren',
+        'Priorität bewerten',
+        'An zuständiges Team routen',
+        'Eskalationen auslösen',
+        'Status tracken',
       ],
-      impact: '4-6 Stunden → 20 Minuten',
+      impact: '5-8 Stunden → 30 Minuten',
       color: 'from-blue-500 to-blue-600',
       bgColor: 'from-blue-100 to-blue-200',
     },
     {
-      icon: UserPlus,
-      title: 'Neuer Kunde',
-      description: 'Onboarding-Prozess für neue Kunden',
+      icon: FileText,
+      title: 'Dokumenten-Intake & Ablage',
+      description: 'Anhänge erfassen, benennen, verschlagworten, korrekt ablegen',
       steps: [
-        'Dokumentensammlung',
-        'Datenerfassung',
-        'System-Setup',
-        'Workflow-Setup',
-        'Qualitätsprüfung',
+        'Dokumente erfassen',
+        'Automatisch benennen',
+        'Metadaten extrahieren',
+        'Verschlagworten',
+        'Strukturiert ablegen',
       ],
       impact: '6-10 Stunden → 1 Stunde',
       color: 'from-teal-500 to-teal-600',
       bgColor: 'from-teal-100 to-teal-200',
     },
     {
-      icon: Calculator,
-      title: 'Compliance-Prüfung',
-      description: 'Laufende Prüfung und Beleg-Verarbeitung',
+      icon: CheckCircle,
+      title: 'Nachweis- und Freigabeprozesse',
+      description: 'Anfordern, prüfen, erinnern, Freigaben dokumentieren',
       steps: [
-        'Belege digitalisieren',
-        'Kontrolle durchführen',
-        'Prüfprotokoll erstellen',
-        'Belege-Freigabe',
-        'System-Übertragung',
+        'Nachweise anfordern',
+        'Vollständigkeit prüfen',
+        'Erinnerungen versenden',
+        'Freigaben einholen',
+        'Dokumentieren',
       ],
-      impact: '12-15 Stunden → 2-3 Stunden',
+      impact: '8-12 Stunden → 2 Stunden',
       color: 'from-purple-500 to-purple-600',
       bgColor: 'from-purple-100 to-purple-200',
+    },
+    {
+      icon: Calendar,
+      title: 'Fristen & Aufgabensteuerung',
+      description: 'Fristen aus Mails/Dokumenten erkennen, Tasks anlegen, Status tracken',
+      steps: [
+        'Fristen erkennen',
+        'Tasks automatisch anlegen',
+        'Erinnerungen setzen',
+        'Status überwachen',
+        'Eskalationen managen',
+      ],
+      impact: '4-6 Stunden → 30 Minuten',
+      color: 'from-orange-500 to-orange-600',
+      bgColor: 'from-orange-100 to-orange-200',
+    },
+    {
+      icon: FileSpreadsheet,
+      title: 'Formular- und Datenerfassung',
+      description: 'Webformulare, CSVs, PDFs in strukturierte Datensätze überführen',
+      steps: [
+        'Formulare auslesen',
+        'Daten extrahieren',
+        'Validieren',
+        'Strukturieren',
+        'In System übertragen',
+      ],
+      impact: '6-10 Stunden → 1-2 Stunden',
+      color: 'from-green-500 to-green-600',
+      bgColor: 'from-green-100 to-green-200',
+    },
+    {
+      icon: Brain,
+      title: 'Wissensbasierte Antworten',
+      description: 'Standardanfragen mit internen Richtlinien und Vorlagen beantworten',
+      steps: [
+        'Anfrage analysieren',
+        'Wissensbank durchsuchen',
+        'Antwort generieren',
+        'Freigabe einholen',
+        'Antwort versenden',
+      ],
+      impact: '10-15 Stunden → 2-3 Stunden',
+      color: 'from-indigo-500 to-indigo-600',
+      bgColor: 'from-indigo-100 to-indigo-200',
     },
   ];
 
@@ -63,13 +111,12 @@ export default function ProvenWorkflows() {
             Automatisierte Standard-Workflows
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Drei vollständig implementierte Workflows, erprobt in
-            Produktionsumgebungen
+            Beispiele für Use Cases, die Sie mit intelligenter Prozessautomatisierung schnell umsetzen können
           </p>
         </div>
 
         {/* Workflow Cards */}
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {workflows.map((workflow, index) => {
             const Icon = workflow.icon;
             return (
@@ -129,15 +176,20 @@ export default function ProvenWorkflows() {
             Ihre eigenen Workflows
           </h3>
           <p className="mb-6 text-gray-600">
-            Diese drei Workflows sind nur der Anfang. IPA kann an Ihre
+            Diese Workflows sind nur der Anfang. IPA kann an Ihre
             spezifischen Prozesse angepasst werden.
           </p>
-          <div className="flex items-center justify-center gap-2 text-teal-600">
-            <span className="font-semibold">
-              Besprechen Sie Ihre Anforderungen in der Prozessanalyse
-            </span>
-            <ArrowRight className="h-5 w-5" />
-          </div>
+          <Button
+            size="lg"
+            onClick={() => {
+              const element = document.getElementById('contact');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            Prozessanalyse anfragen
+          </Button>
         </div>
       </div>
     </section>

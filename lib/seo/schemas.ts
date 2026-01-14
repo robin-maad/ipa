@@ -20,7 +20,7 @@ export function getOrganizationSchema(): WithContext<Organization> {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     description:
-      'Intelligente Prozessautomatisierung für deutsche Steuerkanzleien. 100% GDPR-konform, On-Premise möglich, juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.',
+      'Intelligente Prozessautomatisierung für kleine und mittlere Unternehmen. 100% GDPR-konform, On-Premise möglich, juristisch geprüft durch ein führendes Team im Wirtschaftsrecht.',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'DE',
@@ -46,7 +46,7 @@ export function getWebSiteSchema(): WithContext<WebSite> {
     alternateName: 'Intelligente Prozessautomatisierung',
     url: SITE_URL,
     description:
-      'Enterprise-Grade Prozessautomatisierung speziell für deutsche Steuerkanzleien. DSGVO-konform, sicher und effizient.',
+      'Enterprise-Grade Prozessautomatisierung für kleine und mittlere Unternehmen. DSGVO-konform, sicher und effizient.',
     inLanguage: 'de',
     publisher: {
       '@type': 'Organization',
@@ -65,7 +65,7 @@ export function getServiceSchema(): WithContext<Service> {
     '@type': 'Service',
     name: 'IPA Enterprise Automation',
     description:
-      'On-Premise Digital Workforce für Steuerkanzleien. Automatisierung von bis zu 40% repetitiver Aufgaben mit lokaler KI-Intelligenz.',
+      'On-Premise Digital Workforce für Unternehmen. Automatisierung von bis zu 40% repetitiver Aufgaben mit lokaler KI-Intelligenz.',
     provider: {
       '@type': 'Organization',
       name: 'Smith & Partners',
@@ -82,7 +82,7 @@ export function getServiceSchema(): WithContext<Service> {
     },
     audience: {
       '@type': 'Audience',
-      audienceType: 'Steuerkanzleien',
+      audienceType: 'Kleine und mittlere Unternehmen',
     },
     termsOfService: `${SITE_URL}/datenschutz`,
   };

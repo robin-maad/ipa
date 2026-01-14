@@ -6,9 +6,8 @@ export default function PathToProduction() {
       icon: Phone,
       number: '01',
       title: 'Prozessanalyse',
-      duration: '30 Minuten',
       description:
-        'Kostenloser und vertraulicher Anruf zur Identifizierung Ihres #1 Engpasses',
+        'Wir identifizieren die wichtigsten repetitiven Abläufe, klären Ziele, Risiken und Systemgrenzen',
       details: [
         'Analyse Ihrer aktuellen Workflows',
         'Identifikation von Automatisierungspotenzial',
@@ -20,30 +19,28 @@ export default function PathToProduction() {
     {
       icon: Monitor,
       number: '02',
-      title: 'Live-Demonstration',
-      duration: '60 Minuten',
+      title: 'Automatisierungsdesign',
       description:
-        'Sehen Sie die "Human-in-the-Loop"-Oberfläche in Aktion mit Ihren eigenen Daten',
+        'Wir definieren Datenflüsse, Regeln, Ausnahmen und Freigaben, inklusive Monitoring und Audit-Trail',
       details: [
-        'Demo mit realen Beispielen',
-        'Interaktive Freigabe-Oberfläche',
-        'Fragen & Antworten',
-        'Technische Details',
+        'Workflow-Design und Mapping',
+        'Definition der Regeln und Ausnahmen',
+        'Freigabeprozesse festlegen',
+        'Monitoring-Strategie entwickeln',
       ],
       color: 'blue',
     },
     {
       icon: Rocket,
       number: '03',
-      title: 'Pilot-Projekt',
-      duration: '2-4 Wochen',
+      title: 'Umsetzung & Skalierung',
       description:
-        'Deployment eines high-impact Workflows in Ihrer Produktionsumgebung',
+        'Wir implementieren den Workflow, messen Wirkung und rollen anschließend weitere Use Cases aus',
       details: [
-        'Installation vor Ort',
+        'Installation und Integration',
         'Workflow-Konfiguration',
-        'Team-Schulung',
-        'Support & Optimierung',
+        'Team-Schulung und Onboarding',
+        'Kontinuierliche Optimierung',
       ],
       color: 'purple',
     },
@@ -90,13 +87,10 @@ export default function PathToProduction() {
                       <Icon className={`h-8 w-8 text-${step.color}-700`} />
                     </div>
 
-                    {/* Title & Duration */}
-                    <h3 className="mb-2 text-2xl font-bold text-navy-900">
+                    {/* Title */}
+                    <h3 className="mb-4 text-2xl font-bold text-navy-900">
                       {step.title}
                     </h3>
-                    <div className="mb-4 inline-block rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-                      {step.duration}
-                    </div>
 
                     {/* Description */}
                     <p className="mb-6 text-gray-600">{step.description}</p>
@@ -132,7 +126,7 @@ export default function PathToProduction() {
         {/* Bottom Note */}
         <div className="mt-16 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 p-8 text-center">
           <p className="text-lg font-medium text-gray-700">
-            Zeitinvestition: <strong>~2 Stunden</strong> für erste Schritte
+            Starten Sie mit einem Use Case, der sofort entlastet, und skalieren Sie iterativ
           </p>
           <p className="mt-2 text-sm text-gray-600">
             Kein langwieriger Verkaufsprozess. Kein verstecktes Kleingedrucktes.
