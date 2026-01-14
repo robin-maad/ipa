@@ -7,14 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import Turnstile from '@/components/ui/Turnstile';
 import { landingFormSchema, type LandingFormData } from '@/lib/validation/schemas';
 import {
   trackFormStart,
   trackFormSubmitSuccess,
   trackFormSubmitError,
 } from '@/lib/analytics/events';
-import { Loader2, CheckCircle2, Shield } from 'lucide-react';
+import { Loader2, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function LandingForm() {
@@ -22,7 +21,6 @@ export default function LandingForm() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [hasStarted, setHasStarted] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState<string>('');
 
   const {
     register,
@@ -46,13 +44,6 @@ export default function LandingForm() {
     setIsSubmitting(true);
     setSubmitError(null);
 
-    // Validate Turnstile token
-    if (!turnstileToken) {
-      setSubmitError('Bitte bestätigen Sie, dass Sie kein Roboter sind.');
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
       const response = await fetch('/api/submit-form', {
         method: 'POST',
@@ -67,7 +58,6 @@ export default function LandingForm() {
           message: data.message || '',
           honeypot: data.honeypot || '',
           employeeCount: '<5', // Default value for simplified form
-          turnstileToken, // Include Turnstile token
         }),
       });
 
@@ -287,22 +277,6 @@ export default function LandingForm() {
         </div>
       </div>
 
-      {/* Cloudflare Turnstile */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <Shield className="h-4 w-4 text-teal-600" />
-          <span>Geschützt durch Cloudflare Turnstile</span>
-        </div>
-        <Turnstile
-          onSuccess={(token) => setTurnstileToken(token)}
-          onError={() => {
-            setSubmitError('Bot-Verifikation fehlgeschlagen. Bitte laden Sie die Seite neu.');
-          }}
-          onExpire={() => setTurnstileToken('')}
-          className="flex justify-start"
-        />
-      </div>
-
       {/* Error Message */}
       {submitError && (
         <div className="rounded-md bg-red-50 p-4" role="alert">
@@ -315,7 +289,7 @@ export default function LandingForm() {
         type="submit"
         size="lg"
         className="w-full"
-        disabled={isSubmitting || !turnstileToken}
+        disabled={isSubmitting}
       >
         {isSubmitting ? (
           <>

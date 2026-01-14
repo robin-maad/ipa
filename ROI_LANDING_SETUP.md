@@ -15,7 +15,7 @@ All 16 tasks completed successfully. The ROI calculator landing page is ready fo
 - ✅ Real-time calculation with debounced analytics tracking
 - ✅ Brevo CRM integration (create/update contacts + transactional emails)
 - ✅ Static PDF delivery via email
-- ✅ Turnstile bot protection + rate limiting
+- ✅ Rate limiting for bot protection
 - ✅ Full accessibility (ARIA labels, keyboard navigation, screen reader support)
 
 ### **Page Sections** (8 total, matching spec)
@@ -40,10 +40,6 @@ Add to `.env.local`:
 # Brevo API Configuration
 BREVO_API_KEY=your_brevo_api_key_here
 BREVO_NEWSLETTER_LIST_ID=2
-
-# Turnstile (Cloudflare)
-NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_site_key
-TURNSTILE_SECRET_KEY=your_secret_key
 
 # Base URL (for PDF links in emails)
 NEXT_PUBLIC_BASE_URL=https://ipa-website.vercel.app
@@ -109,7 +105,6 @@ Visit: `http://localhost:3000/roi-landing`
 - [ ] Form Step 2 submits and redirects to `/danke`
 - [ ] Calculator sliders work smoothly on mobile
 - [ ] German number formatting displays correctly
-- [ ] Turnstile loads and verifies
 - [ ] Email arrives with PDF attachment
 - [ ] Brevo contact created with all fields
 
@@ -119,8 +114,6 @@ Visit: `http://localhost:3000/roi-landing`
 # Add environment variables in Vercel dashboard
 vercel env add BREVO_API_KEY
 vercel env add BREVO_NEWSLETTER_LIST_ID
-vercel env add TURNSTILE_SECRET_KEY
-vercel env add NEXT_PUBLIC_TURNSTILE_SITE_KEY
 vercel env add NEXT_PUBLIC_BASE_URL
 
 # Deploy
@@ -186,7 +179,6 @@ Expected: 30+ passing tests verifying:
 - [ ] Calculator sliders adjust smoothly
 - [ ] Outputs update in real-time
 - [ ] Form progresses Step 1 → Step 2
-- [ ] Turnstile loads
 - [ ] Form submits successfully
 - [ ] Email arrives with PDF
 
@@ -289,10 +281,6 @@ trackCalculatorChangeSampled(inputs, newOutputs, 0.25);
 - Check: PDF URL is publicly accessible (`/public/roi-rechner.pdf`)
 - Check: Brevo dashboard → Transactional → Logs for delivery status
 
-### **Issue: Turnstile not loading**
-- Check: `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set
-- Check: Domain is whitelisted in Cloudflare dashboard
-- Check: Browser console for errors
 
 ### **Issue: Calculator numbers don't match examples**
 - Run unit tests: `npm test lib/calculator/roi.test.ts`
@@ -361,7 +349,7 @@ trackCalculatorChangeSampled(inputs, newOutputs, 0.25);
 **Tests**: 30+ unit tests
 **Mobile**: First-class, ≥44px touch targets
 **Accessibility**: WCAG AA compliant
-**Integration**: Brevo CRM + Turnstile + GTM
+**Integration**: Brevo CRM + GTM
 **German**: All copy, number formatting, validation messages
 
 **Live URL**: `https://your-domain.com/roi-landing`

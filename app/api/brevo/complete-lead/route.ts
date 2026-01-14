@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { completeLeadSchema } from '@/lib/validation/roi-schemas';
 import { createOrUpdateContact, sendTransactionalEmail, buildROIEmailHTML } from '@/lib/brevo/client';
-import { verifyTurnstileToken } from '@/lib/security/turnstile';
 import { z } from 'zod';
 
 // Rate limiting (simple in-memory store - use Redis in production)
@@ -31,7 +30,7 @@ function checkRateLimit(ip: string): boolean {
  * POST /api/brevo/complete-lead
  *
  * Step 2 submission: Enrich Brevo contact with full data + send PDF email
- * Includes Turnstile verification and rate limiting
+ * Includes rate limiting
  */
 export async function POST(request: NextRequest) {
   try {
@@ -65,19 +64,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, firstName, lastName, company, calculatorData, turnstileToken } = validationResult.data;
-
-    // Verify Turnstile token
-    const turnstileVerified = await verifyTurnstileToken(turnstileToken);
-    if (!turnstileVerified) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Sicherheitsprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.',
-        },
-        { status: 403 }
-      );
-    }
+    const { email, firstName, lastName, company, calculatorData } = validationResult.data;
 
     // Build attributes for Brevo
     const attributes: Record<string, any> = {

@@ -2,10 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { processAnalysisSchema } from '@/lib/validation/schemas';
 import { Resend } from 'resend';
 import {
-  verifyTurnstileToken,
   isDisposableEmail,
   validateEmailPattern,
-} from '@/lib/security/turnstile';
+} from '@/lib/security/validation';
 
 // Enhanced in-memory rate limiting (for production, use Redis or similar)
 const rateLimitMap = new Map<string, number[]>();
@@ -62,19 +61,6 @@ export async function POST(request: NextRequest) {
     if (validatedData.honeypot) {
       // Silent fail for bots
       return NextResponse.json({ success: true });
-    }
-
-    // Verify Cloudflare Turnstile token
-    const isTurnstileValid = await verifyTurnstileToken(
-      validatedData.turnstileToken,
-      ip
-    );
-
-    if (!isTurnstileValid) {
-      return NextResponse.json(
-        { error: 'Bot-Verifikation fehlgeschlagen. Bitte versuchen Sie es erneut.' },
-        { status: 403 }
-      );
     }
 
     // Check for disposable email

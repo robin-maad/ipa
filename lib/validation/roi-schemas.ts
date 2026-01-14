@@ -131,9 +131,6 @@ export const fullSubmissionSchema = z.object({
 
   // Calculator data (optional - only if user engaged with calculator)
   calculatorData: calculatorDataSchema,
-
-  // Security
-  turnstileToken: z.string().min(1),
 });
 
 export type FullSubmissionData = z.infer<typeof fullSubmissionSchema>;
@@ -165,9 +162,6 @@ export const completeLeadSchema = z.object({
 
   // Calculator data (time-based)
   calculatorData: calculatorDataSchema,
-
-  // Security
-  turnstileToken: z.string().min(1),
 });
 
 export type CompleteLeadData = z.infer<typeof completeLeadSchema>;

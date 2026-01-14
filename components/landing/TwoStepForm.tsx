@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Turnstile from '@/components/ui/Turnstile';
 import {
   step1Schema,
   step2Schema,
@@ -51,7 +50,6 @@ export function TwoStepForm({ calculatorData, className = '' }: TwoStepFormProps
   const [step1Data, setStep1Data] = useState<Step1FormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string>('');
 
   // Load saved progress from localStorage
   useEffect(() => {
@@ -116,8 +114,6 @@ export function TwoStepForm({ calculatorData, className = '' }: TwoStepFormProps
         <Step2Form
           step1Data={step1Data}
           calculatorData={calculatorData}
-          turnstileToken={turnstileToken}
-          setTurnstileToken={setTurnstileToken}
           isSubmitting={isSubmitting}
           setIsSubmitting={setIsSubmitting}
           submitError={submitError}
@@ -275,8 +271,6 @@ interface Step2FormProps {
     inputs: ROICalculatorInputs;
     outputs: ROICalculatorOutputs;
   };
-  turnstileToken: string;
-  setTurnstileToken: (token: string) => void;
   isSubmitting: boolean;
   setIsSubmitting: (value: boolean) => void;
   submitError: string | null;
@@ -286,8 +280,6 @@ interface Step2FormProps {
 function Step2Form({
   step1Data,
   calculatorData,
-  turnstileToken,
-  setTurnstileToken,
   isSubmitting,
   setIsSubmitting,
   submitError,
@@ -302,11 +294,6 @@ function Step2Form({
   });
 
   const onSubmit = async (data: Step2FormData) => {
-    if (!turnstileToken) {
-      setSubmitError('Bitte bestätigen Sie, dass Sie kein Roboter sind.');
-      return;
-    }
-
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -320,7 +307,6 @@ function Step2Form({
           ...calculatorData.inputs,
           ...calculatorData.outputs,
         } : undefined,
-        turnstileToken,
       };
 
       const response = await fetch('/api/brevo/complete-lead', {
@@ -435,11 +421,6 @@ function Step2Form({
         )}
       </div>
 
-      {/* Turnstile */}
-      <div>
-        <Turnstile onSuccess={setTurnstileToken} />
-      </div>
-
       {/* Error Message */}
       {submitError && (
         <div className="p-3 bg-red-900/20 border border-red-700/50 rounded-lg text-sm text-red-400">
@@ -451,7 +432,7 @@ function Step2Form({
       <Button
         type="submit"
         size="lg"
-        disabled={isSubmitting || !turnstileToken}
+        disabled={isSubmitting}
         className="w-full text-base font-semibold"
       >
         {isSubmitting ? 'Sende...' : 'PDF Download'}
